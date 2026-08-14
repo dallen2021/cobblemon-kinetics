@@ -4,10 +4,11 @@ Thank you for helping build Pokémon-operated Create machinery. Contributions
 of code, tests, documentation, translations, bug reproductions, profiling, and
 legally original art are welcome.
 
-The project is currently an unreleased `0.1.0-SNAPSHOT`. Keep changes narrow,
-testable, and honest about what exists today. The only implemented gameplay
-role is the Hydro Coupler operated through the Worker Whistle; roadmap entries
-are not shipped features.
+The project is in its `0.1.0` public-alpha cycle; source builds from `main` use
+the `0.1.0-SNAPSHOT` development version. Keep changes narrow, testable, and
+honest about what exists today. The only implemented gameplay role is the
+Hydro Coupler operated through the Worker Whistle; roadmap entries are not
+shipped features.
 
 By submitting a contribution, you agree that it may be distributed under the
 repository's [Mozilla Public License 2.0](LICENSE) and that you have the right
@@ -80,9 +81,10 @@ dependency jars.
    drifted. Do not rewrite another contributor's work without coordination.
 
 Pull request titles should also follow Conventional Commits because the
-repository uses squash merging. After approval and a green build, the squash
-commit becomes the single permanent commit on `main`; the source branch is
-deleted automatically. There is no long-lived `develop` branch.
+repository uses squash merging. After the required build passes and review
+conversations are resolved, a maintainer can merge the pull request. The
+squash commit becomes the single permanent commit on `main`; the source branch
+is deleted automatically. There is no long-lived `develop` branch.
 
 ## Code expectations
 

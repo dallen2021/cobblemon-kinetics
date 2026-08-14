@@ -23,8 +23,10 @@ same review and CI expectations.
   and saved-data changes start with an issue or discussion before code.
 - Maintainers seek consensus using player impact, compatibility, maintenance
   cost, performance, licensing, and test evidence.
-- A pull request needs a green required build and at least one approval from
-  someone other than its author. The repository squash-merges approved work.
+- A pull request needs a green required build and all review conversations
+  resolved. Non-author review is encouraged for gameplay, API, security,
+  release, and governance changes, but is not a mandatory merge gate. The
+  repository squash-merges accepted work.
 - Anyone with a conflict of interest in a conduct or security report recuses
   themselves from handling it.
 
@@ -36,9 +38,11 @@ follow-up work must be documented publicly as soon as disclosure is safe.
 
 Releases use Semantic Versioning-style `vMAJOR.MINOR.PATCH` tags, with optional
 pre-release suffixes such as `-alpha.1`. A release pull request updates the
-changelog and version-facing documentation before a maintainer tags the exact
-reviewed commit. GitHub Actions rebuilds the source, runs tests, publishes the
-single distributable JAR, and attaches its SHA-256 checksum.
+changelog and version-facing documentation. After it merges, a maintainer runs
+the Release workflow from the default branch with the requested version.
+GitHub Actions rebuilds and tests that reviewed commit before creating the
+exact tag, publishing the single distributable JAR, and attaching its SHA-256
+checksum.
 
 ## Changing governance
 

@@ -48,10 +48,11 @@ Defaults are 8 RPM, 64 SU/RPM capacity, a six-block worker radius, Gen 1 only, p
 - [x] Add `buildAndInstall` to copy the remapped jar into the ignored repo-local modpack target.
 - [x] Document a repeatable five-minute integrated-client smoke test and Java 21/`JAVA_HOME` setup in the root README.
 - [ ] Add NeoForge GameTests for the world-facing coupler, mixin, persistence, claims, and lifecycle behavior.
-- [ ] Complete repeatable dedicated-server and multiplayer smoke-test evidence for the first public release.
-- [ ] Publish the first signed/tagged open-source release artifact and launcher-ready development modpack.
+- [ ] Complete repeatable dedicated-server and multiplayer smoke-test evidence before beta.
+- [x] Publish the first tagged open-source alpha artifact with a checksum.
+- [ ] Publish a launcher-ready development modpack.
 
-The checked items describe the MVP implementation contract. Release-process items remain open until a public release is cut.
+The checked items describe the MVP implementation contract. Unchecked release-process items remain future work.
 
 ## Milestone 1 — harden the MVP
 
@@ -70,7 +71,7 @@ Implemented foundation:
 
 Remaining stabilization work:
 
-- Extend pure tests to the not-alive case, configuration toggles, and claims behavior that can be isolated from a running world.
+- Extract and test claims behavior that can be isolated from a running world.
 - Add NeoForge GameTests for replacement-mode on/off behavior, coupler orientation and attached-wheel requirements, configured output, explicit assignment/clearing, persistence, chunk unload, Pokémon removal, wheel removal, and claim reconstruction.
 - Capture repeatable integrated-client, dedicated-server, and multiplayer smoke-test evidence on the pinned versions.
 - Add guarded maintainer diagnostics for lifecycle and claim failures without logging each normal validation scan.
@@ -78,7 +79,7 @@ Remaining stabilization work:
 
 ### Exit criteria
 
-- [ ] A clean checkout builds with the committed Gradle wrapper and Java 21 in CI and a documented contributor environment.
+- [x] A clean checkout builds with the committed Gradle wrapper and Java 21 in CI and a documented contributor environment.
 - [ ] Automated unit and GameTests cover the eligibility matrix, configured replacement modes, assignment persistence, claims, and lifecycle edge cases.
 - [ ] Integrated-client, dedicated-server, and multiplayer smoke tests pass on the pinned dependency versions.
 - [ ] A contributor can launch the complete test pack through reproducible metadata without downloading untracked third-party jars by hand.

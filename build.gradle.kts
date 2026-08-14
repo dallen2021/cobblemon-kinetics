@@ -184,7 +184,9 @@ tasks.processResources {
         "create_version" to createVersion.substringBefore('-'),
         "mod_authors" to project.property("mod_authors"),
         "mod_description" to project.property("mod_description"),
-        "mod_license" to project.property("mod_license")
+        "mod_license" to project.property("mod_license"),
+        "mod_homepage" to project.property("mod_homepage"),
+        "mod_issues" to project.property("mod_issues")
     )
     inputs.properties(properties)
     filesMatching(listOf("META-INF/neoforge.mods.toml", "pack.mcmeta")) {
