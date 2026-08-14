@@ -34,7 +34,7 @@ updates:
       # Gradle major upgrades must stay within the support window published by
       # Kotlin and the Minecraft modding toolchain. Patch releases remain
       # eligible for routine Dependabot updates.
-      - dependency-name: "gradle-wrapper"
+      - dependency-name: "gradle"
         update-types:
           - "version-update:semver-major"
 
