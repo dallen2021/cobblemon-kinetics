@@ -83,6 +83,31 @@ test("a registry throttle is retried before an atomic replacement", async () => 
   });
 });
 
+test("structured transient subprocess errors are retried", async () => {
+  await withTarget(async ({ targetPath }) => {
+    let calls = 0;
+    await generateDatabaseTypes({
+      targetPath,
+      maxAttempts: 2,
+      retryDelayMs: 1,
+      runner: () => {
+        calls += 1;
+        if (calls > 1) return { status: 0, stdout: validGeneratedTypes, stderr: "" };
+        return {
+          status: null,
+          stdout: "",
+          stderr: "",
+          error: Object.assign(new Error("spawnSync timed out"), { code: "ETIMEDOUT" }),
+        };
+      },
+      sleep: async () => {},
+      writeDiagnostic: () => {},
+    });
+    assert.equal(calls, 2);
+    assert.equal(readFileSync(targetPath, "utf8"), validGeneratedTypes);
+  });
+});
+
 test("deterministic generator errors are not retried", async () => {
   await withTarget(async ({ targetPath }) => {
     let calls = 0;
@@ -107,5 +132,7 @@ test("deterministic generator errors are not retried", async () => {
 test("the transient-failure classifier is intentionally narrow", () => {
   assert.equal(isRetryableGenerationFailure("HTTP status 429"), true);
   assert.equal(isRetryableGenerationFailure("TLS handshake timeout"), true);
+  assert.equal(isRetryableGenerationFailure("", "EAI_AGAIN"), true);
   assert.equal(isRetryableGenerationFailure("invalid schema"), false);
+  assert.equal(isRetryableGenerationFailure("", "ENOENT"), false);
 });

@@ -10,6 +10,13 @@ const projectRoot = resolve(import.meta.dirname, "..");
 const defaultTarget = join(projectRoot, "apps/web/src/types/database.generated.ts");
 const supabaseArguments = ["gen", "types", "typescript", "--local", "--schema", "public"];
 const require = createRequire(import.meta.url);
+const retryableErrorCodes = new Set([
+  "EAI_AGAIN",
+  "ECONNRESET",
+  "ENETDOWN",
+  "ENETUNREACH",
+  "ETIMEDOUT",
+]);
 
 function readPositiveInteger(name, fallback) {
   const rawValue = process.env[name];
@@ -33,7 +40,8 @@ export function normalizeGeneratedTypes(source) {
   return normalized;
 }
 
-export function isRetryableGenerationFailure(details) {
+export function isRetryableGenerationFailure(details, errorCode) {
+  if (errorCode && retryableErrorCodes.has(errorCode)) return true;
   return /(?:too\s*many\s*requests|rate exceeded|status(?: code)? 429|tls handshake timeout|i\/o timeout|connection reset|temporary failure|timed out)/iu.test(
     details,
   );
@@ -106,7 +114,11 @@ export async function generateDatabaseTypes({
 
     const failure = formatFailure(result);
     const details = `${failure}\n${stdout}\n${stderr}`;
-    if (attempt < maxAttempts && isRetryableGenerationFailure(details)) {
+    const errorCode =
+      result.error && "code" in result.error && typeof result.error.code === "string"
+        ? result.error.code
+        : undefined;
+    if (attempt < maxAttempts && isRetryableGenerationFailure(details, errorCode)) {
       const delay = retryDelayMs * attempt;
       writeDiagnostic(
         `${failure} Retrying database type generation in ${delay}ms (attempt ${attempt + 1}/${maxAttempts}).\n`,
