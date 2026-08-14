@@ -29,7 +29,7 @@
     "db:stop": "supabase stop",
     "db:reset": "supabase db reset",
     "db:test": "supabase test db",
-    "db:types": "supabase gen types typescript --local --schema public > apps/web/src/types/database.generated.ts",
+    "db:types": "supabase gen types typescript --local --schema public | node scripts/normalize-generated-text.mjs > apps/web/src/types/database.generated.ts",
     "access:grant": "pnpm --filter @cobblemon-kinetics/data-tools access:grant",
     "backup:create": "node scripts/create-prototype-backup.mjs"
   },

@@ -35,9 +35,12 @@ describe("grantAccess", () => {
       is_active: true,
     });
     const [, upsert] = request.mock.calls;
+    expect(request.mock.calls[0]?.[1]).toMatchObject({ redirect: "error" });
     expect(upsert?.[0]).toBe(
       "https://example.supabase.co/rest/v1/editor_allowlist?on_conflict=github_user_id",
     );
+    expect(upsert?.[1]).toMatchObject({ redirect: "error" });
+    expect(upsert?.[1]?.signal).toBeInstanceOf(AbortSignal);
     expect(JSON.parse(String(upsert?.[1]?.body))).toEqual(result);
   });
 

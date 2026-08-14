@@ -65,6 +65,8 @@ export async function grantAccess(options: GrantAccessOptions): Promise<Allowlis
     `https://api.github.com/users/${encodeURIComponent(githubUser)}`,
     {
       headers: githubHeaders,
+      redirect: "error",
+      signal: AbortSignal.timeout(10_000),
     },
   );
   if (!githubResponse.ok) {
@@ -98,6 +100,8 @@ export async function grantAccess(options: GrantAccessOptions): Promise<Allowlis
         Prefer: "resolution=merge-duplicates,return=representation",
       },
       body: JSON.stringify(entry),
+      redirect: "error",
+      signal: AbortSignal.timeout(10_000),
     },
   );
   if (!upsertResponse.ok) {
