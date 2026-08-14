@@ -14,6 +14,10 @@ Create: Cobblemon Kinetics is a server-authoritative compatibility mod that lets
 | Kotlin for Forge | 5.12.0 |
 | Architectury Loom | 1.11.458 |
 | Architectury plugin | 3.4.164 |
+| Node.js | 24.19.0 (website/data workspace only) |
+| pnpm | 11.19.0 |
+| Web runtime | Next.js 16 App Router |
+| Draft backend | Supabase Postgres/Auth/Storage |
 
 These versions define the supported development and test environment. Changes to any pin require an explicit compatibility pull request with a successful build and in-game integration test.
 
@@ -39,11 +43,27 @@ An active coupler supplies the configured fixed speed and stress-capacity coeffi
 
 This is intentionally narrow. It proves a native Create generator, persistent explicit assignment, bounded Cobblemon entity validation, lifecycle-aware claims, optional environmental-power replacement, multiplayer authority, unit-testable eligibility, and the build-install pipeline before the project adds a generalized job system.
 
+### Implemented private website vertical slice
+
+The repository also contains a separately runnable Node workspace for the
+first Squirtle → Hydro Coupler content flow. It includes versioned JSON
+Schemas, a workbook dry-run importer with flavor-text quarantine, deterministic
+published-data and mod-profile generation, a Next.js wiki/private studio, and
+Supabase migrations with database-backed access and revision checks.
+
+This does not make Supabase authoritative for gameplay. Drafts live in
+Supabase; only reviewed files committed under `data/published` are public, and
+the mod reads only the generated work profile. The Java loader validates
+format 1 resources and registered adapter IDs on server-data reload. The
+existing Hydro implementation does not consume profile balance/eligibility
+yet, so current configuration, NBT, and world behavior remain unchanged.
+
 ### Roadmap only: not implemented yet
 
 The following ideas are architectural direction, not current features:
 
-- JSON/data-pack-defined Pokémon jobs and eligibility rules
+- Live Hydro gameplay selected and balanced by published work profiles (the
+  contract and validation loader exist, but live migration is deferred)
 - Other Create machines, kinetic sources, processing steps, logistics, or contraptions
 - Compatibility modules for Create add-ons
 - Non-Water roles, autonomous pathfinding, schedules, fatigue, happiness, leveling, stat/move scaling, or a management GUI
@@ -212,36 +232,78 @@ Coupler validation occurs often enough to respond to worker state, so implementa
 
 The assigning player's UUID always protects a populated coupler from another player replacing or clearing its assignment. The Pokémon ownership check itself follows `requirePlayerOwned` consistently during selection and active validation.
 
-## Future data-driven role model
+## Published work-profile contract
 
-After the MVP is stable, machine jobs should be described by reloadable data rather than hard-coded species lists. The exact schema is a roadmap deliverable, but the architecture should support these concepts:
+Format 1 is defined by
+`packages/domain/schemas/work-profile.schema.json`, generated deterministically
+into `src/main/resources/data/cobblemon_kinetics/work_profiles`, and validated
+again by the Java parser. The first approved resource has this shape:
 
 ```json
 {
-  "role": "cobblemon_kinetics:hydraulic_worker",
+  "format_version": 1,
+  "id": "cobblemon_kinetics:hydro_operator",
+  "title": "Hydro Operator",
   "priority": 0,
-  "pokemon": {
+  "status": "approved",
+  "selector": {
+    "kind": "type",
     "types": ["cobblemon:water"],
-    "national_dex": { "min": 1, "max": 151 },
+    "national_dex": { "min": 1, "max": 151 }
+  },
+  "constraints": {
     "requires_owner": true,
-    "must_not_be_battling": true
+    "must_be_alive": true,
+    "must_not_be_fainted": true,
+    "must_not_be_battling": true,
+    "must_be_idle": true
   },
   "workstation": {
-    "kind": "cobblemon_kinetics:hydro_coupler",
-    "requires_attached": "create:water_wheels",
+    "adapter_id": "cobblemon_kinetics:hydro_coupler",
+    "registry_ids": ["cobblemon_kinetics:hydro_coupler"],
+    "required_attachment_tag": "create:water_wheels",
     "radius": 6.0
   },
   "contribution": {
     "mode": "fixed",
     "rpm": 8,
-    "capacity_per_rpm": 64
-  }
+    "capacity_per_rpm": 64,
+    "efficiency_multiplier": 1.0
+  },
+  "public_rationale": "Eligible Generation I Water-type workers replace passive flowing-water automation while retaining a visible attached wheel."
 }
 ```
 
-This example is illustrative and is **not a supported data-pack format yet**. The eventual loader must provide a versioned schema, resource-location validation, deterministic conflict resolution, server reload support, and actionable error messages. Code should consume normalized role definitions rather than raw JSON.
+The schema, deterministic exporter, Java parser, server reload, resource-ID
+validation, and actionable rejection logs are implemented. Format 1 supports
+only the selectors and fixed contribution mode represented by its
+discriminated unions. Unknown fields, formats, adapters, registry IDs, or
+out-of-range values are rejected. Conflict resolution between multiple active
+profiles and live adapter execution remain milestone work.
 
-Data-driven does not mean data can directly mutate arbitrary Create internals. Each `workstation.kind` must map to a reviewed code-side adapter that validates allowed inputs and applies bounded effects.
+Data-driven does not mean data can directly mutate arbitrary Create internals.
+Each `workstation.adapter_id` maps to a reviewed code-side descriptor and,
+later, a bounded adapter implementation.
+
+## Website, drafts, and publication boundary
+
+Supabase holds mutable draft heads plus immutable revisions. Writes include an
+expected revision and client mutation ID; a stale write returns a conflict
+rather than overwriting another maintainer. Approval freezes an exact revision
+inside a publication batch but does not publish it.
+
+The studio downloads a public-only bundle. The local exporter verifies its
+schema, hash/signature, removes and regenerates only owned output directories,
+sorts records deterministically, and writes `data/published/manifest.json`.
+CI rejects any file/hash/schema drift. Wiki server components read those Git
+files only. Private notes, comments, raw import rows, user IDs, and quarantined
+flavor text are not fields in the publication schema.
+
+GitHub OAuth identities are allowlisted by durable numeric ID. Each protected
+server request checks active database membership, and RLS remains the final
+deny-by-default boundary. Daniel and Jake have equal `maintainer` capability;
+task ownership stays blank unless explicitly assigned. Deployment and recovery
+details are in [`WEBSITE.md`](WEBSITE.md).
 
 ## Optional Create add-on compatibility
 

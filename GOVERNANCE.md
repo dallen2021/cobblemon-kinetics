@@ -6,15 +6,22 @@ issues, discussions, pull requests, changelog, and architecture notes.
 
 ## Maintainers
 
-- [`@dallen2021`](https://github.com/dallen2021) is the repository owner and
-  release steward.
-- [`@CrayolaNoJutsu`](https://github.com/CrayolaNoJutsu) is an administrator
-  and community moderator, with authority to triage issues, review and merge
-  pull requests, manage releases, and enforce the Code of Conduct.
+- [`@dallen2021`](https://github.com/dallen2021) and
+  [`@CrayolaNoJutsu`](https://github.com/CrayolaNoJutsu) are equal project
+  maintainers. Each may triage issues, make project decisions, review and
+  merge pull requests, manage releases and access, and enforce the Code of
+  Conduct.
 
-Both maintainers are default code owners. Maintainer access is separate from
-authorship: all contributions, including maintainer contributions, use the
-same review and CI expectations.
+Neither maintainer owns a permanent technical or community area. Provider
+billing ownership or an account-level limitation does not grant greater
+project authority. Both maintainers are default code owners. Maintainer access
+is separate from authorship: all contributions, including maintainer
+contributions, use the same review and CI expectations.
+
+Work items and design ideas are unassigned by default. Their creator or
+suggester is recorded separately and is never treated as the owner. An owner
+is added only by an explicit choice; work genuinely shared by both maintainers
+records both assignees and a short division or handoff note.
 
 ## Decisions and review
 
@@ -27,6 +34,10 @@ same review and CI expectations.
   resolved. Non-author review is encouraged for gameplay, API, security,
   release, and governance changes, but is not a mandatory merge gate. The
   repository squash-merges accepted work.
+- Either maintainer may approve a content revision and publish a reviewed
+  publication batch. The private prototype does not impose a mandatory
+  second-maintainer approval gate; audit history records the editor, approver,
+  exporter, and Git commit instead.
 - Anyone with a conflict of interest in a conduct or security report recuses
   themselves from handling it.
 

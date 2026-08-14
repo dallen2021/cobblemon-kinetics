@@ -2,13 +2,14 @@
 
 ## Current support status
 
-Create: Cobblemon Kinetics is pre-release software. There is no stable tagged
-version yet, and the current build identifies itself as `0.1.0-SNAPSHOT`.
+Create: Cobblemon Kinetics is pre-release software. The latest tag is an alpha,
+and development builds identify themselves as `0.1.0-SNAPSHOT`.
 
 | Version or branch | Security support |
 | --- | --- |
 | Current default branch / `0.1.0-SNAPSHOT` | Best-effort reports accepted |
-| Latest tagged release, once one exists | Supported |
+| Latest tagged alpha release | Best-effort reports accepted |
+| Private website/studio prototype on the default branch | Best-effort reports accepted |
 | Older snapshots, forks, or modified jars | Not supported directly |
 | Unpinned Minecraft, NeoForge, Create, or Cobblemon combinations | Reproduction may be requested on pinned versions |
 
@@ -59,6 +60,9 @@ Examples include:
   particles, or malformed saved data;
 - a reliable server crash trigger available to an untrusted player;
 - exposure of private player or server information; and
+- an OAuth/allowlist/RLS bypass, draft or private-note exposure, forged
+  publication bundle, preview-to-production credential leak, or unauthorized
+  private asset access;
 - a vulnerable bundled or declared dependency that materially affects this
   mod's users.
 

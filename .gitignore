@@ -35,3 +35,29 @@ Thumbs.db
 *.swo
 .env
 .env.*
+!.env.example
+!**/.env.example
+
+# Web workspace and Vercel state
+node_modules/
+.pnpm-store/
+.next/
+apps/web/.next/
+apps/web/out/
+packages/*/dist/
+.vercel/
+coverage/
+playwright-report/
+test-results/
+*.tsbuildinfo
+
+# Local Supabase state and private data operations
+supabase/.temp/
+supabase/.branches/
+/.private/
+
+# Private planning workbooks are imported by path and never tracked.
+*.xlsx
+*.xlsm
+*.xlsb
+*.ods

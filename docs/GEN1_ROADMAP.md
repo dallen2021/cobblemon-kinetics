@@ -27,7 +27,7 @@ The player selects an owned eligible deployed Pokémon by right-clicking it with
 
 The wheel is visibly driven by the coupler's normal Create kinetic output. The Pokémon does not directly provide or replace a wheel flow score. A narrow mixin separately sets Create's environmental water-wheel flow score to zero only while the server option `replaceNaturalWaterPower` is enabled; disabling that option preserves normal Create fluid behavior.
 
-Defaults are 8 RPM, 64 SU/RPM capacity, a six-block worker radius, Gen 1 only, player ownership required, and visible splash-stream particles. No water blocks are placed. No other machine roles, add-on integrations, data-pack job definitions, pathfinding, or worker simulation systems are part of the MVP.
+Defaults are 8 RPM, 64 SU/RPM capacity, a six-block worker radius, Gen 1 only, player ownership required, and visible splash-stream particles. No water blocks are placed. No other machine roles, add-on integrations, pathfinding, or worker simulation systems are part of the playable MVP. A format-1 Hydro work profile and validation loader now exist as a non-authoritative contract; current gameplay does not consume them yet.
 
 ### MVP acceptance checklist
 
@@ -86,24 +86,26 @@ Remaining stabilization work:
 
 ## Milestone 2 — data-driven job foundation
 
-**Status: Planned**
+**Status: In progress**
 
 Build the reusable job system before adding many machines. The current Hydro Coupler behavior should migrate onto the framework without changing player-visible behavior or assignment data unnecessarily.
 
-- Define a versioned, reloadable JSON schema for Pokémon selectors and workstation roles.
-- Support selectors based on resource location, elemental type, Pokémon/data tags, and National Pokédex range.
+- [x] Define a versioned, reloadable JSON schema for Pokémon selectors and workstation roles.
+- [ ] Support selectors based on resource location, elemental type, Pokémon/data tags, and National Pokédex range. Format 1 currently supports explicit Pokémon IDs or type plus Pokédex range.
 - Represent shared constraints such as ownership, battle state, dimension, distance, and worker caps once.
-- Introduce a code-side workstation adapter registry. Data selects a reviewed adapter; it cannot invoke arbitrary methods or mutate unrestricted game state.
+- [x] Introduce a code-side workstation adapter registry. Data selects a reviewed adapter descriptor; it cannot invoke arbitrary methods or mutate unrestricted game state.
 - Define deterministic priority and conflict rules when several roles match one Pokémon or workstation.
-- Validate data on reload and report the file, field, and reason for each rejected definition.
-- Expose data generation helpers and schema examples for add-on authors.
+- [x] Validate data on reload and report the file, field, and reason for each rejected definition.
+- [x] Add deterministic publication tooling, a committed Hydro example, and Java contract tests.
+- [ ] Expose supported data generation helpers and a stable author guide for add-on authors.
 
 ### Exit criteria
 
-- The existing Gen 1 Water Hydro Coupler role is expressed with the supported schema.
-- Invalid resources fail safely and provide actionable diagnostics.
+- [x] The existing Gen 1 Water Hydro Coupler role is expressed with the supported schema.
+- [x] Invalid resources fail safely and provide actionable diagnostics.
 - Reloading data cannot duplicate work, leak entity references, or require restarting a dedicated server.
 - Two packs defining overlapping selectors produce a documented deterministic result.
+- Existing Hydro gameplay consumes the validated profile without changing configuration precedence, assignment NBT, or existing-world behavior.
 
 ## Milestone 3 — broaden base Create gameplay
 
