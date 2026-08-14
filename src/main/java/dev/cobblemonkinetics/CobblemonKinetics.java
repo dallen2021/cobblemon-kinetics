@@ -2,6 +2,7 @@ package dev.cobblemonkinetics;
 
 import com.mojang.logging.LogUtils;
 import dev.cobblemonkinetics.config.CobblemonKineticsConfig;
+import dev.cobblemonkinetics.data.workprofile.WorkProfileManager;
 import dev.cobblemonkinetics.registry.CobblemonKineticsBlockEntities;
 import dev.cobblemonkinetics.registry.CobblemonKineticsBlocks;
 import dev.cobblemonkinetics.registry.CobblemonKineticsItems;
@@ -11,6 +12,8 @@ import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.AddReloadListenerEvent;
 import org.slf4j.Logger;
 
 @Mod(CobblemonKinetics.MOD_ID)
@@ -24,6 +27,7 @@ public final class CobblemonKinetics {
         CobblemonKineticsItems.register(modBus);
         CobblemonKineticsBlockEntities.register(modBus);
         modBus.addListener(CobblemonKinetics::addCreativeTabContents);
+        NeoForge.EVENT_BUS.addListener(CobblemonKinetics::addReloadListeners);
 
         container.registerConfig(
             ModConfig.Type.SERVER,
@@ -41,5 +45,9 @@ public final class CobblemonKinetics {
         if (event.getTabKey() == CreativeModeTabs.TOOLS_AND_UTILITIES) {
             event.accept(CobblemonKineticsItems.WORKER_WHISTLE.get());
         }
+    }
+
+    private static void addReloadListeners(AddReloadListenerEvent event) {
+        event.addListener(WorkProfileManager.INSTANCE);
     }
 }
