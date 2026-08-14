@@ -24,6 +24,12 @@ val ponderVersion = providers.gradleProperty("ponder_version").get()
 val flywheelVersion = providers.gradleProperty("flywheel_version").get()
 val registrateVersion = providers.gradleProperty("registrate_version").get()
 val kotlinForForgeVersion = providers.gradleProperty("kotlin_for_forge_version").get()
+val localDevAddonMods = fileTree("dev-addons") {
+    include("*.jar", "embedded-mods/*.jar")
+}
+val localDevAddonLibraries = fileTree("dev-addons/embedded-libs") {
+    include("*.jar")
+}
 
 group = modGroup
 version = modVersion
@@ -83,6 +89,11 @@ dependencies {
     compileOnly("dev.engine-room.flywheel:flywheel-neoforge-api-$minecraftVersion:$flywheelVersion")
     runtimeOnly("dev.engine-room.flywheel:flywheel-neoforge-$minecraftVersion:$flywheelVersion")
     modImplementation("com.tterrag.registrate:Registrate:$registrateVersion")
+
+    // Optional, machine-local integration fixtures. Loom remaps these for the
+    // development namespace; the directory is ignored and never distributed.
+    modRuntimeOnly(localDevAddonMods)
+    add("forgeRuntimeLibrary", localDevAddonLibraries)
 
     testImplementation(platform("org.junit:junit-bom:5.12.2"))
     testImplementation("org.junit.jupiter:junit-jupiter")

@@ -13,6 +13,9 @@ out/
 logs/
 crash-reports/
 
+# Local integration-test add-ons (never redistributed)
+/dev-addons/
+
 # Local modpack instance state and downloaded binaries
 modpack/run/*
 !modpack/run/.gitkeep

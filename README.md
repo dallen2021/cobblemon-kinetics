@@ -190,6 +190,11 @@ verifies their SHA-512 hashes before installing this mod. NeoForge and
 Minecraft remain launcher/Gradle-managed dependencies, and downloaded jars
 must never be committed.
 
+For local compatibility testing, place legally obtained optional add-on jars
+in the ignored `dev-addons/` directory. Gradle exposes them only to development
+runs and Loom remaps them before `runClient` or `runServer`; they are not
+compiled against, packaged into this mod, committed, or redistributed.
+
 ## Five-minute playtest
 
 1. Run `./gradlew runClient` and create a test world.
