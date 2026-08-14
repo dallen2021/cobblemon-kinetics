@@ -5,6 +5,7 @@ import { join } from "node:path";
 import test from "node:test";
 import {
   generateDatabaseTypes,
+  getSupabaseInvocation,
   isRetryableGenerationFailure,
   normalizeGeneratedTypes,
 } from "./generate-database-types.mjs";
@@ -24,6 +25,20 @@ test("normalization rejects empty or incomplete generator output", () => {
   assert.throws(() => normalizeGeneratedTypes(""), /incomplete/u);
   assert.throws(() => normalizeGeneratedTypes("export type Json = string\n"), /incomplete/u);
   assert.equal(normalizeGeneratedTypes(`${validGeneratedTypes}\n\n`), validGeneratedTypes);
+});
+
+test("the pinned Supabase JavaScript launcher is used on every platform", () => {
+  const invocation = getSupabaseInvocation();
+  assert.equal(invocation.command, process.execPath);
+  assert.match(invocation.arguments[0], /[/\\]supabase[/\\]dist[/\\]supabase\.js$/u);
+  assert.deepEqual(invocation.arguments.slice(1), [
+    "gen",
+    "types",
+    "typescript",
+    "--local",
+    "--schema",
+    "public",
+  ]);
 });
 
 test("failed generation preserves the existing tracked file", async () => {

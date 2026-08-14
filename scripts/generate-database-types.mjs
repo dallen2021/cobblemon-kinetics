@@ -2,12 +2,14 @@
 
 import { spawnSync } from "node:child_process";
 import { mkdirSync, renameSync, rmSync, writeFileSync } from "node:fs";
+import { createRequire } from "node:module";
 import { basename, dirname, join, resolve } from "node:path";
 import { pathToFileURL } from "node:url";
 
 const projectRoot = resolve(import.meta.dirname, "..");
 const defaultTarget = join(projectRoot, "apps/web/src/types/database.generated.ts");
 const supabaseArguments = ["gen", "types", "typescript", "--local", "--schema", "public"];
+const require = createRequire(import.meta.url);
 
 function readPositiveInteger(name, fallback) {
   const rawValue = process.env[name];
@@ -37,8 +39,17 @@ export function isRetryableGenerationFailure(details) {
   );
 }
 
+export function getSupabaseInvocation() {
+  const packagePath = require.resolve("supabase/package.json");
+  return {
+    command: process.execPath,
+    arguments: [join(dirname(packagePath), "dist/supabase.js"), ...supabaseArguments],
+  };
+}
+
 function runSupabaseGenerator({ cwd, timeoutMs }) {
-  return spawnSync("supabase", supabaseArguments, {
+  const invocation = getSupabaseInvocation();
+  return spawnSync(invocation.command, invocation.arguments, {
     cwd,
     encoding: "utf8",
     maxBuffer: 32 * 1024 * 1024,
