@@ -1,7 +1,11 @@
 import { createServerClient } from "@supabase/ssr";
 import { type NextRequest, NextResponse } from "next/server";
+import { getSiteAccessMode, type SiteAccessMode } from "@/lib/env";
 import { requireSafeSupabaseUrl } from "@/lib/supabase/url-policy";
 import type { Database } from "@/types/database.generated";
+
+const PRIVATE_CACHE_CONTROL = "private, no-store";
+const PRIVATE_CRAWLER_POLICY = "noindex, nofollow";
 
 const anonymousPaths = new Set([
   "/auth/sign-in",
@@ -52,34 +56,57 @@ function safeFixtureMode(request: NextRequest): boolean {
   }
 }
 
-function isProtected(pathname: string): boolean {
+function isProtected(pathname: string, mode: SiteAccessMode): boolean {
   if (anonymousPaths.has(pathname)) return false;
-  const mode = process.env.SITE_ACCESS_MODE ?? "private";
   return pathname.startsWith("/studio") || mode === "private";
+}
+
+function withAccessHeaders(
+  response: NextResponse,
+  mode: SiteAccessMode,
+  { noStore = false }: { noStore?: boolean } = {},
+): NextResponse {
+  if (noStore) {
+    response.headers.set("Cache-Control", PRIVATE_CACHE_CONTROL);
+  }
+  if (mode !== "published_public") {
+    response.headers.set("X-Robots-Tag", PRIVATE_CRAWLER_POLICY);
+  }
+  return response;
+}
+
+function privateRedirect(url: URL, mode: SiteAccessMode): NextResponse {
+  return withAccessHeaders(NextResponse.redirect(url), mode, { noStore: true });
 }
 
 export async function proxy(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
-  const mode = process.env.SITE_ACCESS_MODE ?? "private";
+  const mode = getSiteAccessMode();
   if (mode === "disabled" && !disabledPaths.has(pathname)) {
-    return NextResponse.redirect(new URL("/maintenance", request.url));
+    return privateRedirect(new URL("/maintenance", request.url), mode);
   }
 
   if (process.env.STUDIO_FIXTURE_MODE === "true" && !safeFixtureMode(request)) {
-    return NextResponse.json({ error: "Local fixture access rejected." }, { status: 403 });
+    return withAccessHeaders(
+      NextResponse.json({ error: "Local fixture access rejected." }, { status: 403 }),
+      mode,
+      { noStore: true },
+    );
   }
 
   const environment = supabaseEnvironment();
   if (!environment) {
     if (safeFixtureMode(request)) {
-      return NextResponse.next();
+      return withAccessHeaders(NextResponse.next(), mode, {
+        noStore: isProtected(pathname, mode) || pathname.startsWith("/auth"),
+      });
     }
-    if (isProtected(pathname)) {
+    if (isProtected(pathname, mode)) {
       const url = new URL("/auth/sign-in", request.url);
       url.searchParams.set("next", `${pathname}${request.nextUrl.search}`);
-      return NextResponse.redirect(url);
+      return privateRedirect(url, mode);
     }
-    return NextResponse.next();
+    return withAccessHeaders(NextResponse.next(), mode);
   }
 
   let response = NextResponse.next({ request });
@@ -99,15 +126,14 @@ export async function proxy(request: NextRequest) {
   });
 
   const { data } = await supabase.auth.getClaims();
-  if (isProtected(pathname) && !data?.claims?.sub) {
+  if (isProtected(pathname, mode) && !data?.claims?.sub) {
     const url = new URL("/auth/sign-in", request.url);
     url.searchParams.set("next", `${pathname}${request.nextUrl.search}`);
-    return NextResponse.redirect(url);
+    return privateRedirect(url, mode);
   }
-  if (isProtected(pathname) || pathname.startsWith("/auth")) {
-    response.headers.set("Cache-Control", "private, no-store");
-  }
-  return response;
+  return withAccessHeaders(response, mode, {
+    noStore: isProtected(pathname, mode) || pathname.startsWith("/auth"),
+  });
 }
 
 export const config = {
