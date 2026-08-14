@@ -66,29 +66,12 @@ project's remapped jar into `modpack/run/mods/`. Supply third-party runtime
 dependencies through Gradle or reproducible pack metadata; never commit
 dependency jars.
 
-Website, data-contract, migration, or database-policy changes additionally
-require Node 24, the pnpm version pinned by `packageManager`, and Docker for
-local Supabase. Follow [`docs/WEBSITE.md`](docs/WEBSITE.md), then run the
-relevant independent checks:
-
-```sh
-corepack enable
-corepack install
-pnpm install --frozen-lockfile
-pnpm guard
-pnpm data:verify
-pnpm lint
-pnpm typecheck
-pnpm test
-pnpm db:start
-pnpm db:reset
-pnpm db:test
-pnpm build:web
-```
-
-Do not make `./gradlew build` install Node dependencies or contact a hosted
-service. Pull-request previews use committed public fixtures only and must not
-receive production Supabase, OAuth, Storage, signing, or backup credentials.
+Website, wiki, collaborative-data, and publication-tooling changes belong in
+the separate
+[`cobblemon-kinetics-website`](https://github.com/dallen2021/cobblemon-kinetics-website)
+repository. This repository must remain independently buildable with Java and
+Gradle; `./gradlew build` must never install Node dependencies or contact a
+hosted service.
 
 ## Branch and commit guidance
 
@@ -139,20 +122,16 @@ Optional integrations must not load their classes when the optional mod is
 absent. Each integration proposal must identify its exact supported version,
 public API or minimal hook, license, failure behavior, and test plan.
 
-For the website and data pipeline:
+For imported work profiles:
 
-- keep JSON Schema as the language-neutral contract and regenerate checked-in
-  TypeScript artifacts after schema changes;
-- keep public projections allowlisted and incapable of representing private
-  notes, comments, actor IDs, raw imports, or quarantined fields;
-- add Supabase changes as forward SQL migrations with deny-by-default RLS,
-  explicit grants, and policy tests;
-- verify authorization in every Server Action and Route Handler rather than
-  trusting redirects, browser metadata, or editable user metadata;
-- use expected revisions and immutable history for writes—never
-  last-write-wins; and
-- keep exported JSON deterministic and generated mod work profiles unedited by
-  hand.
+- treat the schema in
+  [`cobblemon-kinetics-website`](https://github.com/dallen2021/cobblemon-kinetics-website/tree/main/packages/domain/schemas)
+  as the language-neutral publication contract;
+- import only a reviewed, deterministic export—never private notes, comments,
+  actor IDs, raw workbook rows, or quarantined fields;
+- identify the website commit and publication bundle in the pull request;
+- keep exported JSON unedited by hand; and
+- run the Java parser contract tests against every bundled profile.
 
 ## Tests and manual verification
 
@@ -235,8 +214,8 @@ Before requesting review, confirm that:
 - [ ] No jars, secrets, logs with private data, generated run state, or
       unlicensed assets are included.
 - [ ] All submitted material is original or has complete compatible provenance.
-- [ ] Website/data changes pass the pnpm and local-Supabase checks above, keep
-      draft/public data isolated, and produce no deterministic-export drift.
+- [ ] Imported work-profile changes identify their reviewed website source,
+      contain public fields only, and pass the Java contract tests.
 
 ## Review and conduct
 

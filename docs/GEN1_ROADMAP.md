@@ -96,7 +96,10 @@ Build the reusable job system before adding many machines. The current Hydro Cou
 - [x] Introduce a code-side workstation adapter registry. Data selects a reviewed adapter descriptor; it cannot invoke arbitrary methods or mutate unrestricted game state.
 - Define deterministic priority and conflict rules when several roles match one Pokémon or workstation.
 - [x] Validate data on reload and report the file, field, and reason for each rejected definition.
-- [x] Add deterministic publication tooling, a committed Hydro example, and Java contract tests.
+- [x] Add a committed Hydro example and Java contract tests. Deterministic
+  publication tooling lives in the separate
+  [`cobblemon-kinetics-website`](https://github.com/dallen2021/cobblemon-kinetics-website)
+  repository.
 - [ ] Expose supported data generation helpers and a stable author guide for add-on authors.
 
 ### Exit criteria
