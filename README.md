@@ -97,7 +97,7 @@ The MVP currently includes:
 - crafting recipes, loot, translations, basic runtime-resource-based models,
   and Create-goggle feedback;
 - fast unit tests for worker eligibility and configuration-policy branches;
-- Java 21 build CI and a tag-driven release workflow; and
+- Java 21 build CI and a protected maintainer-dispatched release workflow; and
 - a reproducible, ignored local development-pack staging target.
 
 This alpha is not a stable release. NeoForge GameTests, complete lifecycle
@@ -337,8 +337,9 @@ Contributions are welcome. Start with the
 
 - [Build workflow](.github/workflows/build.yml): runs the Java 21 Gradle build
   for pull requests and pushes to `main`.
-- [Release workflow](.github/workflows/release.yml): rebuilds and attaches the
-  single distributable JAR when a maintainer pushes a `v*` tag.
+- [Release workflow](.github/workflows/release.yml): runs only from the default
+  branch, rebuilds the reviewed source, and then creates the release tag and
+  attaches the single distributable JAR and checksum.
 - [Security policy](SECURITY.md): use the private reporting path for suspected
   vulnerabilities rather than a public issue.
 
