@@ -136,8 +136,8 @@ version in the range has been tested.
 | Cobblemon | 1.7.3+1.21.1 | 1.7.3 up to, but not including, 1.8.0 |
 | Kotlin for Forge | 5.12.0 | Pinned runtime dependency for the Cobblemon NeoForge stack |
 
-The Gradle build additionally pins Gradle 8.14.3, Architectury Loom 1.11.458,
-Architectury plugin 3.4.164, Kotlin JVM plugin 2.2.20, Ponder 1.0.82, Flywheel
+The Gradle build additionally pins Gradle 8.14.4, Architectury Loom 1.11.458,
+Architectury plugin 3.4.164, Kotlin JVM plugin 2.4.10, Ponder 1.0.82, Flywheel
 1.0.6, and Registrate `MC1.21-1.3.0+67`. The authoritative values are in
 [`gradle.properties`](gradle.properties); the local pack's runtime pins are
 also recorded in [`modpack/versions.json`](modpack/versions.json).
