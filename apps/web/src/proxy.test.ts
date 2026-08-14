@@ -43,6 +43,22 @@ describe("request proxy security gates", () => {
     const response = await proxy(new NextRequest("http://127.0.0.1:3000/studio"));
     expect(response.status).toBe(200);
     expect(response.headers.get("x-middleware-next")).toBe("1");
+    expect(response.headers.get("cache-control")).toBe("private, no-store");
+    expect(response.headers.get("x-robots-tag")).toBe("noindex, nofollow");
+  });
+
+  it("marks an anonymous private-route redirect as private and unindexable", async () => {
+    process.env.STUDIO_FIXTURE_MODE = "false";
+    const response = await proxy(
+      new NextRequest("https://studio.example.test/studio?record=squirtle"),
+    );
+
+    expect(response.status).toBe(307);
+    expect(response.headers.get("location")).toBe(
+      "https://studio.example.test/auth/sign-in?next=%2Fstudio%3Frecord%3Dsquirtle",
+    );
+    expect(response.headers.get("cache-control")).toBe("private, no-store");
+    expect(response.headers.get("x-robots-tag")).toBe("noindex, nofollow");
   });
 
   it("fails closed when a configured session endpoint uses unsafe HTTP", async () => {
@@ -54,6 +70,8 @@ describe("request proxy security gates", () => {
     expect(response.headers.get("location")).toBe(
       "https://studio.example.test/auth/sign-in?next=%2Fstudio",
     );
+    expect(response.headers.get("cache-control")).toBe("private, no-store");
+    expect(response.headers.get("x-robots-tag")).toBe("noindex, nofollow");
   });
 
   it.each(["/auth/sign-in", "/auth/callback?code=value", "/auth/denied"])(
@@ -64,6 +82,18 @@ describe("request proxy security gates", () => {
       const response = await proxy(new NextRequest(`https://studio.example.test${pathname}`));
       expect(response.status).toBe(307);
       expect(response.headers.get("location")).toBe("https://studio.example.test/maintenance");
+      expect(response.headers.get("cache-control")).toBe("private, no-store");
+      expect(response.headers.get("x-robots-tag")).toBe("noindex, nofollow");
     },
   );
+
+  it("does not block public-site indexing in published-public mode", async () => {
+    process.env.SITE_ACCESS_MODE = "published_public";
+    process.env.STUDIO_FIXTURE_MODE = "false";
+    const response = await proxy(new NextRequest("https://studio.example.test/wiki"));
+
+    expect(response.status).toBe(200);
+    expect(response.headers.get("x-middleware-next")).toBe("1");
+    expect(response.headers.get("x-robots-tag")).toBeNull();
+  });
 });
