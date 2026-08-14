@@ -1,0 +1,66 @@
+name: Feature request
+description: Suggest a focused gameplay or compatibility improvement.
+title: "[Feature]: "
+labels:
+  - enhancement
+  - needs-triage
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Describe the player problem first, then the proposed behavior. Early milestones focus on Gen 1 Pokemon working with Create machinery.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Player problem
+      description: What limitation or missing interaction are players encountering?
+      placeholder: Players cannot currently ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: Explain the Pokemon, Create component, inputs, outputs, feedback, and failure states involved.
+      placeholder: When a player assigns ..., the Pokemon should ...
+    validations:
+      required: true
+
+  - type: dropdown
+    id: scope
+    attributes:
+      label: Request type
+      options:
+        - Pokemon worker behavior
+        - Create machine integration
+        - Create addon compatibility
+        - Configuration or datapack support
+        - User interface or accessibility
+        - Developer API or tooling
+        - Other gameplay improvement
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Describe workarounds or other designs you considered.
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+      description: Add sketches, screenshots, balancing notes, related issues, or links to compatible addons.
+
+  - type: checkboxes
+    id: confirmations
+    attributes:
+      label: Confirmation
+      options:
+        - label: I searched existing issues and did not find this request already proposed.
+          required: true
+        - label: This request fits a compatibility mod between Create and Cobblemon.
+          required: true

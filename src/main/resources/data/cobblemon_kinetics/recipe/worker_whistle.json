@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "C": {
+      "item": "minecraft:copper_ingot"
+    },
+    "S": {
+      "item": "minecraft:string"
+    }
+  },
+  "pattern": [
+    " C ",
+    "CCS",
+    " C "
+  ],
+  "result": {
+    "count": 1,
+    "id": "cobblemon_kinetics:worker_whistle"
+  }
+}

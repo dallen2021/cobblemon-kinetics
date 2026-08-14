@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "facing=down": { "model": "cobblemon_kinetics:block/hydro_coupler", "x": 90, "uvlock": true },
+    "facing=up": { "model": "cobblemon_kinetics:block/hydro_coupler", "x": 270, "uvlock": true },
+    "facing=north": { "model": "cobblemon_kinetics:block/hydro_coupler" },
+    "facing=south": { "model": "cobblemon_kinetics:block/hydro_coupler", "y": 180, "uvlock": true },
+    "facing=west": { "model": "cobblemon_kinetics:block/hydro_coupler", "y": 270, "uvlock": true },
+    "facing=east": { "model": "cobblemon_kinetics:block/hydro_coupler", "y": 90, "uvlock": true }
+  }
+}

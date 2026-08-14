@@ -1,0 +1,31 @@
+# Gradle and IDE state
+.gradle/
+build/
+out/
+.idea/
+*.iml
+.classpath
+.project
+.settings/
+
+# Minecraft development runs
+/run/
+logs/
+crash-reports/
+
+# Local modpack instance state and downloaded binaries
+modpack/run/*
+!modpack/run/.gitkeep
+!modpack/run/mods/
+modpack/run/mods/*
+!modpack/run/mods/.gitkeep
+*.jar
+!gradle/wrapper/gradle-wrapper.jar
+
+# OS and editor files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.env
+.env.*

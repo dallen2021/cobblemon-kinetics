@@ -1,0 +1,121 @@
+name: Bug report
+description: "Report a reproducible problem with Create: Cobblemon Kinetics."
+title: "[Bug]: "
+labels:
+  - bug
+  - needs-triage
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping improve Create: Cobblemon Kinetics. Search existing issues first, then include enough detail for someone else to reproduce the problem.
+
+  - type: dropdown
+    id: environment
+    attributes:
+      label: Environment
+      description: Where did the problem occur?
+      options:
+        - Single-player or integrated server
+        - Multiplayer client
+        - Dedicated server
+        - Both client and dedicated server
+    validations:
+      required: true
+
+  - type: input
+    id: mod-version
+    attributes:
+      label: "Create: Cobblemon Kinetics version"
+      placeholder: 0.1.0
+    validations:
+      required: true
+
+  - type: input
+    id: minecraft-version
+    attributes:
+      label: Minecraft version
+      value: 1.21.1
+    validations:
+      required: true
+
+  - type: input
+    id: neoforge-version
+    attributes:
+      label: NeoForge version
+      placeholder: 21.1.244
+    validations:
+      required: true
+
+  - type: input
+    id: create-version
+    attributes:
+      label: Create version
+      placeholder: 6.0.10
+    validations:
+      required: true
+
+  - type: input
+    id: cobblemon-version
+    attributes:
+      label: Cobblemon version
+      placeholder: 1.7.3
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Problem description
+      description: Explain what happened and when. Include the affected Pokemon, machine, or contraption where relevant.
+      placeholder: A concise description of the problem.
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction steps
+      description: Provide the smallest reliable sequence that reproduces the problem.
+      placeholder: |
+        1. Place ...
+        2. Assign ...
+        3. Observe ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+      placeholder: Describe what should have happened instead.
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs or crash report
+      description: Drag files here or paste a link. Remove access tokens, addresses, and other private information first.
+      render: shell
+    validations:
+      required: true
+
+  - type: textarea
+    id: other-mods
+    attributes:
+      label: Other mods and datapacks
+      description: List other installed mods and datapacks, or attach a launcher-exported mod list.
+      placeholder: One entry per line, including versions when possible.
+
+  - type: checkboxes
+    id: confirmations
+    attributes:
+      label: Confirmation
+      options:
+        - label: I searched existing issues and did not find this problem already reported.
+          required: true
+        - label: I reproduced this with supported versions of Minecraft, NeoForge, Create, and Cobblemon.
+          required: true
+        - label: I removed secrets and private information from the attached logs.
+          required: true

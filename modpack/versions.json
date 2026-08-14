@@ -1,0 +1,13 @@
+{
+  "java": 21,
+  "minecraft": "1.21.1",
+  "loader": {
+    "name": "neoforge",
+    "version": "21.1.244"
+  },
+  "requiredMods": {
+    "cobblemon": "1.7.3+1.21.1",
+    "create": "6.0.10",
+    "kotlinForForge": "5.12.0"
+  }
+}
