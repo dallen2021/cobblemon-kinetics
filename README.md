@@ -3,6 +3,7 @@
 > **Pokémon power real Create contraptions.**
 
 [![Build](https://github.com/dallen2021/cobblemon-kinetics/actions/workflows/build.yml/badge.svg)](https://github.com/dallen2021/cobblemon-kinetics/actions/workflows/build.yml)
+[![Web and Data](https://github.com/dallen2021/cobblemon-kinetics/actions/workflows/web.yml/badge.svg)](https://github.com/dallen2021/cobblemon-kinetics/actions/workflows/web.yml)
 [![License: MPL-2.0](https://img.shields.io/badge/license-MPL--2.0-blue.svg)](LICENSE)
 
 Create: Cobblemon Kinetics is an open-source compatibility mod for
@@ -106,13 +107,34 @@ launcher-ready public pack are still outstanding. Save data, balance,
 configuration, and compatibility boundaries may change before the first
 stable release.
 
+### Private website prototype
+
+The repository now also contains the first secure website/studio vertical
+slice. It provides an original Git-backed wiki, private GitHub sign-in,
+database-backed maintainer allowlisting, a Squirtle → Hydro Coupler editor,
+optimistic revision checks, approval/publication boundaries, a repeatable
+workbook dry-run importer, and deterministic public/mod exports.
+
+Supabase holds collaborative drafts; only reviewed files in `data/published`
+feed the wiki and mod. The website does not publish private notes, workbook
+flavor text, actor identifiers, or third-party game artwork. Existing Hydro
+gameplay still uses its current configuration and saved-data path: the new
+work-profile loader validates the contract but does not silently migrate live
+world behavior.
+
+This is a private prototype, not a production service. See the
+[website and studio guide](docs/WEBSITE.md) for architecture, local setup,
+publication, access, backup, and the mandatory paid-hosting gate before public
+launch.
+
 ## Future scope
 
 These are roadmap items, **not current features**:
 
 - Fire, Electric, Flying, Fighting, Grass, Ice, Psychic, Ghost, logistics, or
   other Pokémon jobs;
-- data-pack-defined work profiles or a public workstation adapter API;
+- live gameplay driven by published work profiles or a public workstation
+  adapter API (the first schema/parser exists, but is not yet authoritative);
 - stat-, move-, evolution-, friendship-, stamina-, or fatigue-based output;
 - autonomous pathfinding, schedules, feeding, or worker management screens;
 - Poké Ball, medicine, candy, or other Create processing recipes;
@@ -169,6 +191,11 @@ If that command fails or reports another major version, configure
 directory**, put its `bin` directory first on `PATH`, reopen the shell, and
 check again. Pointing `JAVA_HOME` at a JRE or a nonexistent directory will
 not install Java.
+
+Node.js and Docker are not required to build or play the mod. Website and data
+contributors additionally use Node 24, the pinned pnpm 11.19.0 workspace, and
+Docker for local Supabase. Their complete setup is in
+[`docs/WEBSITE.md`](docs/WEBSITE.md).
 
 From the repository root, run:
 
@@ -337,6 +364,9 @@ Contributions are welcome. Start with the
 
 - [Build workflow](.github/workflows/build.yml): runs the Java 21 Gradle build
   for pull requests and pushes to `main`.
+- [Web and Data workflow](.github/workflows/web.yml): validates repository
+  hygiene, published-data drift, TypeScript, the Next production build, and
+  local Supabase migrations/policies without receiving production secrets.
 - [Release workflow](.github/workflows/release.yml): runs only from the default
   branch, rebuilds the reviewed source, and then creates the release tag and
   attaches the single distributable JAR and checksum.
