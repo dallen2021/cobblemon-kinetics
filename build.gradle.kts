@@ -9,7 +9,7 @@ plugins {
     jacoco
     id("dev.architectury.loom") version "1.11.458"
     id("architectury-plugin") version "3.4.164"
-    kotlin("jvm") version "2.2.20"
+    kotlin("jvm") version "2.4.10"
 }
 
 val modId = providers.gradleProperty("mod_id").get()
