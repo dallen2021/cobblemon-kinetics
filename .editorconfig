@@ -10,11 +10,7 @@ trim_trailing_whitespace = true
 indent_style = space
 indent_size = 4
 
-[*.{ts,tsx,js,mjs,cjs,json,json5,toml,yml,yaml,md}]
-indent_style = space
-indent_size = 2
-
-[*.sql]
+[*.{json,json5,toml,yml,yaml,md}]
 indent_style = space
 indent_size = 2
 

@@ -34,10 +34,11 @@ records both assignees and a short division or handoff note.
   resolved. Non-author review is encouraged for gameplay, API, security,
   release, and governance changes, but is not a mandatory merge gate. The
   repository squash-merges accepted work.
-- Either maintainer may approve a content revision and publish a reviewed
-  publication batch. The private prototype does not impose a mandatory
-  second-maintainer approval gate; audit history records the editor, approver,
-  exporter, and Git commit instead.
+- The companion
+  [`cobblemon-kinetics-website`](https://github.com/dallen2021/cobblemon-kinetics-website)
+  repository applies the same equal-maintainer and neutral-ownership model to
+  its studio and publication workflow. A profile exported from that project
+  still enters this mod through the normal pull-request and CI process.
 - Anyone with a conflict of interest in a conduct or security report recuses
   themselves from handling it.
 

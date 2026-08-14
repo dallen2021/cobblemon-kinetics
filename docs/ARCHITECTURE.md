@@ -14,10 +14,6 @@ Create: Cobblemon Kinetics is a server-authoritative compatibility mod that lets
 | Kotlin for Forge | 5.12.0 |
 | Architectury Loom | 1.11.458 |
 | Architectury plugin | 3.4.164 |
-| Node.js | 24.19.0 (website/data workspace only) |
-| pnpm | 11.19.0 |
-| Web runtime | Next.js 16 App Router |
-| Draft backend | Supabase Postgres/Auth/Storage |
 
 These versions define the supported development and test environment. Changes to any pin require an explicit compatibility pull request with a successful build and in-game integration test.
 
@@ -43,20 +39,19 @@ An active coupler supplies the configured fixed speed and stress-capacity coeffi
 
 This is intentionally narrow. It proves a native Create generator, persistent explicit assignment, bounded Cobblemon entity validation, lifecycle-aware claims, optional environmental-power replacement, multiplayer authority, unit-testable eligibility, and the build-install pipeline before the project adds a generalized job system.
 
-### Implemented private website vertical slice
+### Implemented work-profile validation slice
 
-The repository also contains a separately runnable Node workspace for the
-first Squirtle → Hydro Coupler content flow. It includes versioned JSON
-Schemas, a workbook dry-run importer with flavor-text quarantine, deterministic
-published-data and mod-profile generation, a Next.js wiki/private studio, and
-Supabase migrations with database-backed access and revision checks.
+The mod bundles a format-1 Hydro work profile, a server-data reload listener,
+a strict Java parser, and a reviewed workstation-adapter registry. The profile
+is an explicit export from the separate
+[`cobblemon-kinetics-website`](https://github.com/dallen2021/cobblemon-kinetics-website)
+project; this repository contains no browser application, collaborative
+drafts, database state, or publication tooling.
 
-This does not make Supabase authoritative for gameplay. Drafts live in
-Supabase; only reviewed files committed under `data/published` are public, and
-the mod reads only the generated work profile. The Java loader validates
-format 1 resources and registered adapter IDs on server-data reload. The
-existing Hydro implementation does not consume profile balance/eligibility
-yet, so current configuration, NBT, and world behavior remain unchanged.
+The existing Hydro implementation does not consume profile balance or
+eligibility yet, so current configuration, NBT, and world behavior remain
+unchanged. Invalid, unknown, or unsupported resources fail closed during
+server-data reload and cannot name arbitrary game internals.
 
 ### Roadmap only: not implemented yet
 
@@ -232,12 +227,14 @@ Coupler validation occurs often enough to respond to worker state, so implementa
 
 The assigning player's UUID always protects a populated coupler from another player replacing or clearing its assignment. The Pokémon ownership check itself follows `requirePlayerOwned` consistently during selection and active validation.
 
-## Published work-profile contract
+## Bundled work-profile contract
 
-Format 1 is defined by
-`packages/domain/schemas/work-profile.schema.json`, generated deterministically
-into `src/main/resources/data/cobblemon_kinetics/work_profiles`, and validated
-again by the Java parser. The first approved resource has this shape:
+Format 1 is defined by the language-neutral
+[`work-profile.schema.json`](https://github.com/dallen2021/cobblemon-kinetics-website/blob/main/packages/domain/schemas/work-profile.schema.json)
+contract in the companion website repository. A reviewed export is copied into
+`src/main/resources/data/cobblemon_kinetics/work_profiles` through an explicit
+mod pull request and validated again by the Java parser. The first bundled
+resource has this shape:
 
 ```json
 {
@@ -274,36 +271,32 @@ again by the Java parser. The first approved resource has this shape:
 }
 ```
 
-The schema, deterministic exporter, Java parser, server reload, resource-ID
-validation, and actionable rejection logs are implemented. Format 1 supports
-only the selectors and fixed contribution mode represented by its
-discriminated unions. Unknown fields, formats, adapters, registry IDs, or
-out-of-range values are rejected. Conflict resolution between multiple active
-profiles and live adapter execution remain milestone work.
+The external schema and exporter, plus this repository's Java parser, server
+reload, resource-ID validation, and actionable rejection logs, are
+implemented. Format 1 supports only the selectors and fixed contribution mode
+represented by its discriminated unions. Unknown fields, formats, adapters,
+registry IDs, or out-of-range values are rejected. Conflict resolution between
+multiple active profiles and live adapter execution remain milestone work.
 
 Data-driven does not mean data can directly mutate arbitrary Create internals.
 Each `workstation.adapter_id` maps to a reviewed code-side descriptor and,
 later, a bounded adapter implementation.
 
-## Website, drafts, and publication boundary
+## Cross-repository publication boundary
 
-Supabase holds mutable draft heads plus immutable revisions. Writes include an
-expected revision and client mutation ID; a stale write returns a conflict
-rather than overwriting another maintainer. Approval freezes an exact revision
-inside a publication batch but does not publish it.
+Collaborative drafts, review state, schemas, and deterministic export tooling
+live in
+[`cobblemon-kinetics-website`](https://github.com/dallen2021/cobblemon-kinetics-website).
+That project may produce a public-only mod export, but it never writes this
+repository automatically. A maintainer applies the export locally, identifies
+the exact source commit and publication bundle, runs the Java contract tests,
+and submits the resulting work-profile changes through normal Git review.
 
-The studio downloads a public-only bundle. The local exporter verifies its
-schema, hash/signature, removes and regenerates only owned output directories,
-sorts records deterministically, and writes `data/published/manifest.json`.
-CI rejects any file/hash/schema drift. Wiki server components read those Git
-files only. Private notes, comments, raw import rows, user IDs, and quarantined
-flavor text are not fields in the publication schema.
-
-GitHub OAuth identities are allowlisted by durable numeric ID. Each protected
-server request checks active database membership, and RLS remains the final
-deny-by-default boundary. Daniel and Jake have equal `maintainer` capability;
-task ownership stays blank unless explicitly assigned. Deployment and recovery
-details are in [`WEBSITE.md`](WEBSITE.md).
+Once merged here, the bundled JSON resource is the mod build input. Private
+notes, comments, raw imports, user identities, credentials, and database state
+must never cross this boundary. The mod build is intentionally independent: it
+requires Java and Gradle only and does not invoke Node, the website, or a hosted
+service.
 
 ## Optional Create add-on compatibility
 

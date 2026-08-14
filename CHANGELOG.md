@@ -13,24 +13,16 @@ between minor versions.
 
 ### Added
 
-- Private-first Next.js website and Supabase studio foundation for the
-  Squirtle → Hydro Coupler content workflow, with GitHub allowlisting, equal
-  maintainer roles, revision conflicts, approval history, and private/public
-  data separation.
-- Versioned JSON Schemas, deterministic publication tooling, public-data
-  manifests, and a rights-safe workbook dry-run importer that quarantines
-  Pokédex flavor text and preserves blank task ownership.
 - Format-1 Hydro Operator work profile, server-data reload validation,
   reviewed workstation-adapter registry, and Java parser contract tests. The
   profile is not yet authoritative for live Hydro gameplay.
-- Separate web/data/database CI, repository hygiene checks, original website
-  design, prototype backup tooling, and website/deployment documentation.
 
-### Security
+### Changed
 
-- Added deny-by-default database policies, stable numeric GitHub-ID access,
-  expected-revision writes, public-only publication bundles, and a default-off
-  third-party asset policy.
+- Moved the wiki, private design studio, publication data, database migrations,
+  and Node tooling to the separate
+  [`cobblemon-kinetics-website`](https://github.com/dallen2021/cobblemon-kinetics-website)
+  repository so the mod remains an independent Java/Gradle project.
 
 ## [0.1.0-alpha.1] - 2026-08-13
 

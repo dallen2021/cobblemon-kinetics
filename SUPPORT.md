@@ -28,6 +28,10 @@ identifiers, and unrelated personal information before sharing logs.
   integrations.
 - Use pull requests for finished, scoped changes that follow
   [CONTRIBUTING.md](CONTRIBUTING.md).
+- Report wiki, studio, publication-data, or hosted-site problems in the
+  separate
+  [`cobblemon-kinetics-website`](https://github.com/dallen2021/cobblemon-kinetics-website)
+  repository.
 
 Please do not use unrelated upstream trackers to report this mod's bugs. If a
 problem reproduces without Create: Cobblemon Kinetics, report it to the project

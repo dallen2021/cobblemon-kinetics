@@ -11,8 +11,6 @@
 <!-- List the commands and in-game scenarios used to verify the change. -->
 
 - [ ] `./gradlew build`
-- [ ] `pnpm guard && pnpm data:verify && pnpm lint && pnpm typecheck && pnpm test && pnpm build:web`, when applicable
-- [ ] `pnpm db:reset && pnpm db:test`, when a migration, RLS policy, RPC, or seed changes
 - [ ] Single-player or integrated-server behavior tested, when applicable
 - [ ] Dedicated-server behavior tested, when applicable
 
@@ -32,8 +30,8 @@
 - [ ] `CHANGELOG.md` is updated for user-visible changes, or the change has no user-visible effect.
 - [ ] Tests or reproducible manual test steps cover the change.
 - [ ] No third-party JARs, generated build outputs, or unlicensed upstream assets are included.
-- [ ] No secrets, raw workbooks, private notes/imports, production-derived preview data, or machine-specific paths are included.
-- [ ] Published-data changes were generated deterministically and contain only public-schema fields.
+- [ ] No secrets, raw workbooks, private planning data, or machine-specific paths are included.
+- [ ] Imported work-profile JSON identifies its reviewed source and passes the Java contract tests.
 - [ ] The change is compatible with the repository's MPL-2.0 license.
 
 ## Screenshots or recordings
