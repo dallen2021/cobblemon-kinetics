@@ -13,6 +13,9 @@ out/
 logs/
 crash-reports/
 
+# Personal client options persisted across Gradle development launches
+/.dev-client-settings/
+
 # Local integration-test add-ons (never redistributed)
 /dev-addons/
 

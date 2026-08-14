@@ -18,6 +18,9 @@ to provide every part of it under those terms.
 - Search existing issues and pull requests before duplicating work.
 - Open a design issue before adding a machine role, public API, mixin, optional
   Create add-on integration, new dependency, or dependency-version upgrade.
+- Use the dedicated compatibility proposal form for Create add-ons. Include an
+  official project link, exact version, upstream license, integration boundary,
+  add-on-absent behavior, and test plan.
 - Read [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for integration boundaries
   and [docs/GEN1_ROADMAP.md](docs/GEN1_ROADMAP.md) for planned scope.
 - Keep gameplay changes within Generation 1 unless maintainers have explicitly
@@ -57,21 +60,29 @@ Useful tasks:
 ./gradlew buildAndInstall
 ```
 
-`buildAndInstall` copies only this project's remapped jar into
-`modpack/run/mods/`. Supply third-party runtime dependencies through Gradle or
-reproducible pack metadata; never commit dependency jars.
+`buildAndInstall` prepares the ignored, pinned local test pack and copies this
+project's remapped jar into `modpack/run/mods/`. Supply third-party runtime
+dependencies through Gradle or reproducible pack metadata; never commit
+dependency jars.
 
 ## Branch and commit guidance
 
 1. Fork the repository and branch from the current default branch.
-2. Name the branch after one concern, for example `fix/worker-claim-release` or
-   `docs/dedicated-server-test`.
-3. Make focused commits with imperative summaries.
-4. Rebase or merge the latest default branch before requesting final review if
-   the change has drifted.
-5. Do not rewrite another contributor's work without coordination.
+2. Use a short branch prefix that describes the work: `feat/`, `fix/`,
+   `docs/`, `test/`, `refactor/`, `build/`, or `chore/`. Include the issue
+   number when one exists, for example `fix/42-worker-claim-release`.
+3. Use [Conventional Commits](https://www.conventionalcommits.org/) with an
+   imperative summary, such as `fix(coupler): release stale worker claim` or
+   `docs: add dedicated-server test steps`.
+4. Keep each commit reviewable and keep each pull request focused on one
+   concern. A work-in-progress branch may contain several commits.
+5. Update the branch from `main` before requesting final review when it has
+   drifted. Do not rewrite another contributor's work without coordination.
 
-Maintainers may squash a pull request when merging.
+Pull request titles should also follow Conventional Commits because the
+repository uses squash merging. After approval and a green build, the squash
+commit becomes the single permanent commit on `main`; the source branch is
+deleted automatically. There is no long-lived `develop` branch.
 
 ## Code expectations
 
@@ -183,7 +194,8 @@ Before requesting review, confirm that:
 
 Reviewers may request a smaller scope, more tests, licensing evidence, or a
 different compatibility boundary. Technical disagreement is normal; keep it
-specific to the work and follow [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md).
+specific to the work and follow [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) and
+[GOVERNANCE.md](GOVERNANCE.md).
 
 For a suspected vulnerability, do not open a public bug report. Follow
 [SECURITY.md](SECURITY.md).

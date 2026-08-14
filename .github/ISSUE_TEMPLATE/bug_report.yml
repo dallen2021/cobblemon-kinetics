@@ -96,7 +96,7 @@ body:
     id: logs
     attributes:
       label: Logs or crash report
-      description: Drag files here or paste a link. Remove access tokens, addresses, and other private information first.
+      description: Attach latest.log and, for a crash, the matching crash report. Use debug.log only when it is needed. Remove access tokens, addresses, and other private information first.
       render: shell
     validations:
       required: true
@@ -107,6 +107,12 @@ body:
       label: Other mods and datapacks
       description: List other installed mods and datapacks, or attach a launcher-exported mod list.
       placeholder: One entry per line, including versions when possible.
+
+  - type: textarea
+    id: world-context
+    attributes:
+      label: World and lifecycle context
+      description: Note whether this also reproduces in a new world and whether saving, reloading, chunk unloading, recalling a Pokemon, or reconnecting changes the result.
 
   - type: checkboxes
     id: confirmations

@@ -1,1 +1,8 @@
 blank_issues_enabled: false
+contact_links:
+  - name: Questions and support
+    url: https://github.com/dallen2021/cobblemon-kinetics/discussions
+    about: Ask usage questions and discuss ideas that are not ready for an issue.
+  - name: Report a vulnerability privately
+    url: https://github.com/dallen2021/cobblemon-kinetics/security/advisories/new
+    about: Do not disclose security vulnerabilities in a public issue.

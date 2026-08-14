@@ -7,16 +7,30 @@ updates:
       interval: weekly
       day: monday
       time: "09:00"
-      timezone: America/Phoenix
     open-pull-requests-limit: 5
     labels:
       - dependencies
     commit-message:
       prefix: "build(deps)"
     groups:
-      gradle-dependencies:
+      non-major-gradle-dependencies:
         patterns:
           - "*"
+        update-types:
+          - minor
+          - patch
+    # The Minecraft/NeoForge/Create/Cobblemon stack is a coordinated
+    # compatibility target. Upgrade it deliberately and test it in-game rather
+    # than accepting independent automated bumps.
+    ignore:
+      - dependency-name: "net.minecraft:minecraft"
+      - dependency-name: "net.neoforged:neoforge"
+      - dependency-name: "com.cobblemon:*"
+      - dependency-name: "com.simibubi.create:*"
+      - dependency-name: "net.createmod.ponder:*"
+      - dependency-name: "dev.engine-room.flywheel:*"
+      - dependency-name: "com.tterrag.registrate:*"
+      - dependency-name: "thedarkcolour:kotlinforforge-neoforge"
 
   - package-ecosystem: github-actions
     directory: "/"
@@ -24,13 +38,15 @@ updates:
       interval: weekly
       day: monday
       time: "09:00"
-      timezone: America/Phoenix
     open-pull-requests-limit: 5
     labels:
       - dependencies
     commit-message:
       prefix: "ci(deps)"
     groups:
-      github-actions:
+      non-major-github-actions:
         patterns:
           - "*"
+        update-types:
+          - minor
+          - patch

@@ -30,6 +30,11 @@ val localDevAddonMods = fileTree("dev-addons") {
 val localDevAddonLibraries = fileTree("dev-addons/embedded-libs") {
     include("*.jar")
 }
+val clientRunDirectory = layout.projectDirectory.dir("run/client")
+val clientOptionsFile = clientRunDirectory.file("options.txt").asFile
+val persistentClientOptionsFile = layout.projectDirectory
+    .file(".dev-client-settings/options.txt")
+    .asFile
 
 group = modGroup
 version = modVersion
@@ -50,7 +55,7 @@ loom {
         named("client") {
             client()
             configName = "Cobblemon Kinetics Client"
-            runDir = "run/client"
+            runDir = clientRunDirectory.asFile.relativeTo(projectDir).invariantSeparatorsPath
         }
         named("server") {
             server()
@@ -58,6 +63,63 @@ loom {
             runDir = "run/server"
         }
     }
+}
+
+fun File.containsMinecraftOptions(): Boolean =
+    isFile && length() > 0 && useLines { lines -> lines.any { it.startsWith("version:") } }
+
+fun copyClientOptions(source: File, destination: File) {
+    destination.parentFile.mkdirs()
+    Files.copy(source.toPath(), destination.toPath(), StandardCopyOption.REPLACE_EXISTING)
+}
+
+val prepareClientSettings = tasks.register("prepareClientSettings") {
+    group = "development"
+    description = "Restores or snapshots the ignored repo-local Minecraft client options before launch."
+
+    doLast {
+        when {
+            clientOptionsFile.containsMinecraftOptions() -> {
+                copyClientOptions(clientOptionsFile, persistentClientOptionsFile)
+                logger.lifecycle("Snapshotted client options from ${clientOptionsFile.relativeTo(projectDir)}")
+            }
+            persistentClientOptionsFile.containsMinecraftOptions() -> {
+                copyClientOptions(persistentClientOptionsFile, clientOptionsFile)
+                logger.lifecycle("Restored client options to ${clientOptionsFile.relativeTo(projectDir)}")
+            }
+            else -> logger.lifecycle("No existing client options found; Minecraft will create them on first launch.")
+        }
+    }
+}
+
+val captureClientSettings = tasks.register("captureClientSettings") {
+    group = "development"
+    description = "Captures Minecraft client options in the ignored repo-local settings store after launch."
+
+    doLast {
+        if (clientOptionsFile.containsMinecraftOptions()) {
+            copyClientOptions(clientOptionsFile, persistentClientOptionsFile)
+            logger.lifecycle("Captured client options in ${persistentClientOptionsFile.relativeTo(projectDir)}")
+        } else {
+            logger.lifecycle("Client options were not written; the previous settings snapshot was left untouched.")
+        }
+    }
+}
+
+tasks.register("clientSettingsStatus") {
+    group = "development"
+    description = "Shows the repo-local runtime and persistent Minecraft client options locations."
+
+    doLast {
+        logger.lifecycle("Client game directory: ${clientRunDirectory.asFile}")
+        logger.lifecycle("Runtime options: ${clientOptionsFile} (${if (clientOptionsFile.containsMinecraftOptions()) "ready" else "missing"})")
+        logger.lifecycle("Persistent options: ${persistentClientOptionsFile} (${if (persistentClientOptionsFile.containsMinecraftOptions()) "ready" else "missing"})")
+    }
+}
+
+tasks.named("runClient") {
+    dependsOn(prepareClientSettings)
+    finalizedBy(captureClientSettings)
 }
 
 repositories {

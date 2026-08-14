@@ -48,6 +48,12 @@ a published stable release.
   jar-ignored development modpack target with hash-verified dependency
   downloads and a Modrinth manifest.
 - Architecture and Generation 1 roadmap documentation.
+- Public project governance, contribution and support policies, structured
+  issue and pull request templates, dependency updates, and hardened GitHub
+  build and release automation.
+- Ignored repo-local recovery for development-client `options.txt`, including
+  Gradle restore, capture, and status tasks so personal settings survive a
+  regenerated run directory without entering version control.
 
 ### Changed
 

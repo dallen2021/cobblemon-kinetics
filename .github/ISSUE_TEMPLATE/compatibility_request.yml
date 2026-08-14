@@ -1,0 +1,91 @@
+name: Create add-on compatibility proposal
+description: Propose a researched integration with a specific Create add-on.
+title: "[Compatibility]: "
+labels:
+  - enhancement
+  - compatibility
+  - needs-triage
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Add-on integrations are future work and require a design discussion before implementation. Please identify a player-facing use case, an exact supported version, and a legally safe integration boundary.
+
+  - type: input
+    id: addon
+    attributes:
+      label: Add-on name
+      placeholder: "Create: Example Additions"
+    validations:
+      required: true
+
+  - type: input
+    id: project-url
+    attributes:
+      label: Official project URL
+      description: Link to the add-on's official source repository or distribution page.
+      placeholder: https://github.com/example/project
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: Exact version to support
+      description: Include the Minecraft and loader version when it is not evident from the add-on version.
+      placeholder: 1.2.3 for Minecraft 1.21.1 on NeoForge
+    validations:
+      required: true
+
+  - type: input
+    id: license
+    attributes:
+      label: Upstream license
+      description: Give the license name and link to the upstream license file. Write "unknown" if it could not be established.
+      placeholder: MIT — https://github.com/example/project/blob/main/LICENSE
+    validations:
+      required: true
+
+  - type: textarea
+    id: use-case
+    attributes:
+      label: Player-facing use case
+      description: Describe the Pokemon role, add-on machine, input, output, visual feedback, and failure states.
+      placeholder: Players should be able to ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: integration
+    attributes:
+      label: Proposed integration boundary
+      description: Link to a documented API when one exists. Otherwise identify the smallest likely hook and why it is needed. Do not paste upstream source code.
+      placeholder: The add-on exposes ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: absence
+    attributes:
+      label: Behavior when the add-on is absent
+      description: Explain how the integration remains optional and avoids loading add-on classes when the add-on is not installed.
+    validations:
+      required: true
+
+  - type: textarea
+    id: testing
+    attributes:
+      label: Test plan
+      description: Cover supported and unsupported versions, dedicated server use, save/load behavior, and the add-on-absent case where relevant.
+
+  - type: checkboxes
+    id: confirmations
+    attributes:
+      label: Confirmation
+      options:
+        - label: I searched existing issues and the Generation 1 roadmap for this integration.
+          required: true
+        - label: This proposal does not require copying upstream code or assets into this repository.
+          required: true
+        - label: I understand that a proposal is not a promise of implementation or support.
+          required: true

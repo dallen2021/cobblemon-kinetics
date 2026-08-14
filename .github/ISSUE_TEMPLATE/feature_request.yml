@@ -55,6 +55,12 @@ body:
       label: Additional context
       description: Add sketches, screenshots, balancing notes, related issues, or links to compatible addons.
 
+  - type: textarea
+    id: scope-boundary
+    attributes:
+      label: Scope and compatibility impact
+      description: Identify any new dependency, configuration, saved-data change, mixin, or supported-version change the proposal would require.
+
   - type: checkboxes
     id: confirmations
     attributes:
