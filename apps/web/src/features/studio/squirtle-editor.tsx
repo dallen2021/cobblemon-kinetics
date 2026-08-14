@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import type { SquirtleDraft } from "@/data/types";
 import { EfficiencyGauge, ItemSlot, RegistryId, StatusLamp, TypeChip } from "@/components/ui";
@@ -271,7 +272,13 @@ export function SquirtleEditor({
       <section className="editor-canvas" aria-labelledby="editor-title">
         <header className="record-header">
           <div className="record-token" aria-hidden="true">
-            007
+            <Image
+              className="record-token-art"
+              src="/art/generated/water-worker.webp"
+              alt=""
+              width={56}
+              height={56}
+            />
           </div>
           <div>
             <p className="eyebrow">Worker record · Revision {record.revision}</p>

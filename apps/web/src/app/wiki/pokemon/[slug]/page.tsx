@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import {
@@ -49,6 +50,24 @@ export default async function PokemonDetailPage({ params }: Props) {
           </div>
         }
       />
+      <section className="worker-class-art" aria-labelledby="worker-class-art-title">
+        <div>
+          <p className="eyebrow">Original role concept</p>
+          <h2 id="worker-class-art-title">Water Worker</h2>
+          <p>
+            This project-owned class illustration represents the Hydro role. It is not species
+            artwork and is not used as a replacement for Cobblemon assets.
+          </p>
+        </div>
+        <Image
+          alt="Original Water Worker class illustration"
+          height={1254}
+          loading="eager"
+          sizes="(max-width: 760px) 260px, 390px"
+          src="/art/generated/water-worker.webp"
+          width={1254}
+        />
+      </section>
       <div className="detail-grid">
         <MaterialPanel title="Published facts" eyebrow="Worker record">
           <dl className="definition-list">

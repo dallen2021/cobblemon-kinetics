@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { SignInButton } from "./sign-in-button";
 import { getAppBaseUrl, hasSupabaseEnvironment, isFixtureModeEnabled } from "@/lib/env";
@@ -23,7 +24,17 @@ export default async function SignInPage({
     : "";
 
   return (
-    <main className="centered-page">
+    <main className="centered-page auth-page">
+      <aside className="auth-art" aria-label="Cobblemon Kinetics workshop illustration">
+        <Image
+          alt="An original water worker operating a brass hydro workstation"
+          fill
+          priority
+          sizes="(max-width: 760px) 100vw, 58vw"
+          src="/art/generated/hydro-workshop-hero.webp"
+        />
+        <span aria-hidden="true" />
+      </aside>
       <MaterialPanel
         className="auth-card"
         eyebrow="Private prototype"

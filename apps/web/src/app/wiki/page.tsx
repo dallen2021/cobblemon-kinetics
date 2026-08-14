@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { EmptyState, PageHeading, StatusLamp } from "@/components/ui";
 import { WikiCard } from "@/components/wiki-card";
@@ -21,14 +22,38 @@ export default async function WikiPage() {
       {total ? (
         <div className="panel-grid panel-grid-three">
           <WikiCard href="/wiki/pokemon" eyebrow="Roster" title="Pokémon">
+            <Image
+              alt=""
+              className="wiki-card-art"
+              height={1254}
+              sizes="(max-width: 760px) calc(100vw - 4rem), 340px"
+              src="/art/generated/water-worker.webp"
+              width={1254}
+            />
             <p>Browse workers by namespaced ID, National Dex number, or supported job.</p>
             <strong className="large-number">{catalog.pokemon.length}</strong>
           </WikiCard>
           <WikiCard href="/wiki/jobs" eyebrow="Capabilities" title="Jobs">
+            <Image
+              alt=""
+              className="wiki-card-art"
+              height={1254}
+              sizes="(max-width: 760px) calc(100vw - 4rem), 340px"
+              src="/art/generated/principle-worker-plan.webp"
+              width={1254}
+            />
             <p>Inspect eligibility, behavior, shutdown rules, and linked machines.</p>
             <strong className="large-number">{catalog.jobs.length}</strong>
           </WikiCard>
           <WikiCard href="/wiki/machines" eyebrow="Create handoff" title="Machines">
+            <Image
+              alt=""
+              className="wiki-card-art"
+              height={1254}
+              sizes="(max-width: 760px) calc(100vw - 4rem), 340px"
+              src="/art/generated/hydro-coupler.webp"
+              width={1254}
+            />
             <p>Find registry-backed workstations and their supported workflows.</p>
             <strong className="large-number">{catalog.machines.length}</strong>
           </WikiCard>

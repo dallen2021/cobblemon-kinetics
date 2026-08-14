@@ -1,3 +1,4 @@
+import Image from "next/image";
 import type { ReactNode } from "react";
 
 function classNames(...values: Array<string | false | null | undefined>): string {
@@ -66,10 +67,14 @@ export function ItemSlot({
 }) {
   return (
     <span className={classNames("item-slot", active && "item-slot-active")}>
-      <span className="machine-glyph" aria-hidden="true">
-        <span className="machine-glyph-ring" />
-        <span className="machine-glyph-shaft" />
-      </span>
+      <Image
+        className="item-slot-art"
+        src="/art/generated/hydro-coupler.webp"
+        alt=""
+        width={64}
+        height={64}
+        aria-hidden="true"
+      />
       <span className="item-slot-copy">
         <strong>{label}</strong>
         <RegistryId>{registryId}</RegistryId>
@@ -94,9 +99,14 @@ export function EfficiencyGauge({ value }: { value: number }) {
 export function EmptyState({ title, children }: { title: string; children: ReactNode }) {
   return (
     <div className="empty-state">
-      <span className="empty-glyph" aria-hidden="true">
-        □
-      </span>
+      <Image
+        className="empty-state-art"
+        src="/art/generated/empty-workbench.webp"
+        alt=""
+        width={180}
+        height={145}
+        aria-hidden="true"
+      />
       <h2>{title}</h2>
       <div>{children}</div>
     </div>

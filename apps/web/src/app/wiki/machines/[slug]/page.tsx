@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ItemSlot, MaterialPanel, PageHeading, RegistryId, StatusLamp } from "@/components/ui";
@@ -25,6 +26,14 @@ export default async function MachineDetailPage({ params }: { params: Promise<{ 
       />
       <div className="detail-grid">
         <MaterialPanel eyebrow="Registry" title="Machine binding">
+          <Image
+            alt="Original Hydro Coupler workstation illustration"
+            className="machine-portrait"
+            height={1254}
+            sizes="(max-width: 760px) 240px, 360px"
+            src="/art/generated/hydro-coupler.webp"
+            width={1254}
+          />
           <ItemSlot active label={machine.name} registryId={machine.registryId} />
           <p>This exact namespaced ID is pinned in the published profile.</p>
         </MaterialPanel>

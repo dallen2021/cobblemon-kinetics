@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import type { AppMember } from "@/lib/auth";
 
@@ -13,9 +14,15 @@ export function SiteHeader({ member }: { member: AppMember | null }) {
   return (
     <header className="site-header">
       <Link className="brand" href="/" aria-label="Cobblemon Kinetics home">
-        <span className="brand-mark" aria-hidden="true">
-          <span />
-        </span>
+        <Image
+          className="brand-emblem"
+          src="/art/generated/kinetics-emblem.webp"
+          alt=""
+          width={48}
+          height={48}
+          loading="eager"
+          aria-hidden="true"
+        />
         <span>
           <strong>Cobblemon Kinetics</strong>
           <small>Create-compatible work systems</small>

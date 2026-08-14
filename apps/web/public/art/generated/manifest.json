@@ -1,0 +1,71 @@
+{
+  "manifest_version": 1,
+  "generated_at": "2026-08-14",
+  "generator": "OpenAI built-in image generation",
+  "provider": "project_original",
+  "third_party_visual_references": [],
+  "rights_status": "reviewed_for_project_use",
+  "style_direction": "Original painterly fantasy-industrial workshop art with brass, copper, oxidized teal, dark steel, cream ceramic, and cyan water.",
+  "files": [
+    {
+      "path": "brass-gear.webp",
+      "sha256": "5abe0734ee2d6868c3cf542808029956a2b62e2dd87c2a38552b38f33d58319a",
+      "purpose": "Animated factory and loading gear"
+    },
+    {
+      "path": "brass-payload.webp",
+      "sha256": "8c9e876ca0f7955c11ad01392720f8f930177fcf762f48347802991255d69b84",
+      "purpose": "Animated machined component"
+    },
+    {
+      "path": "conveyor.webp",
+      "sha256": "4c03bfbecb9995f88d8751e2585963abf710dffe3d946818c393fd2a9bc3db67",
+      "purpose": "Animated Hydro sequence conveyor"
+    },
+    {
+      "path": "empty-workbench.webp",
+      "sha256": "35bf85633eb959151cbe8dbaa08d7a120f8afb9fded3f6ad9ea6c84bccfce8aa",
+      "purpose": "Empty and search state illustration"
+    },
+    {
+      "path": "hydro-coupler.webp",
+      "sha256": "8d2f42c2a25aaa1854815445a226622facb01040b8c0aaa48b512563d23261e1",
+      "purpose": "Original Hydro Coupler workstation art"
+    },
+    {
+      "path": "hydro-workshop-hero.webp",
+      "sha256": "dafaf63189908c21a294c33059dcbcf0283b7a1601cc07dffdc3d57cb1b65b0e",
+      "purpose": "Homepage and sign-in workshop scene"
+    },
+    {
+      "path": "kinetics-emblem.webp",
+      "sha256": "7f7f1ecc9dec66373b4955fb86245333fb3861bfcffc35b87fd911c05e91f78e",
+      "purpose": "Abstract turbine-and-water project emblem"
+    },
+    {
+      "path": "principle-revisions.webp",
+      "sha256": "d78df249ef502c8a8399dcd8e8beccec9e2dbb502e47bfaae4825d046fdfdccc",
+      "purpose": "Reviewable-by-default design principle"
+    },
+    {
+      "path": "principle-universal-data.webp",
+      "sha256": "9bf4999831318098f667e02c5502fa2cfeeabc14c8d76d8e4338499b2fbc80c8",
+      "purpose": "Universal-data design principle"
+    },
+    {
+      "path": "principle-worker-plan.webp",
+      "sha256": "4d894fb4fb425fcf5a8ef5df337db49c9997524d92c1481fa8b95de55678d6d8",
+      "purpose": "Worker-readable design principle"
+    },
+    {
+      "path": "water-jet.webp",
+      "sha256": "a1a1037b1a797079cd31ab507af91e2b6e99b67a29b1bfa153e11872010cf2b4",
+      "purpose": "Animated Hydro sequence water effect"
+    },
+    {
+      "path": "water-worker.webp",
+      "sha256": "d93ad50a5d3cfe003209dc83d94c513351d18607b8f41d41d0ab97ba005ef1b6",
+      "purpose": "Original Water Worker role art; not species artwork"
+    }
+  ]
+}
