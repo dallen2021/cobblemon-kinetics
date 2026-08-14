@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { HydroLine } from "@/components/hydro-line";
 import { MaterialPanel, RegistryId, StatusLamp } from "@/components/ui";
@@ -8,6 +9,15 @@ export default async function HomePage() {
   return (
     <main>
       <section className="hero">
+        <Image
+          alt="An original water worker powering a brass hydro workstation in a mechanical workshop"
+          className="hero-art"
+          fill
+          priority
+          sizes="100vw"
+          src="/art/generated/hydro-workshop-hero.webp"
+        />
+        <span className="hero-art-shade" aria-hidden="true" />
         <div className="hero-copy">
           <p className="eyebrow">A worker-first factory experiment</p>
           <h1>Make the creature part of the machine.</h1>
@@ -33,7 +43,8 @@ export default async function HomePage() {
             <span>WORK PROFILE</span>
             <strong>HYDRO / 001</strong>
           </div>
-          <div className="instrument-dial" aria-hidden="true">
+          <div className="instrument-asset">
+            <Image alt="" height={1254} src="/art/generated/kinetics-emblem.webp" width={1254} />
             <span>1.00×</span>
           </div>
           <dl>
@@ -64,18 +75,45 @@ export default async function HomePage() {
         </div>
         <div className="panel-grid panel-grid-three">
           <MaterialPanel eyebrow="01" title="Worker-readable">
+            <Image
+              alt=""
+              className="principle-art"
+              height={1254}
+              loading="lazy"
+              sizes="(max-width: 760px) calc(100vw - 4rem), 390px"
+              src="/art/generated/principle-worker-plan.webp"
+              width={1254}
+            />
             <p>
               Every job states who can do it, where it happens, when it stops, and how it affects
               the network.
             </p>
           </MaterialPanel>
           <MaterialPanel eyebrow="02" title="Reviewable by default">
+            <Image
+              alt=""
+              className="principle-art"
+              height={1254}
+              loading="lazy"
+              sizes="(max-width: 760px) calc(100vw - 4rem), 390px"
+              src="/art/generated/principle-revisions.webp"
+              width={1254}
+            />
             <p>
               Drafts stay private. Approved revisions become deterministic files before anything
               appears in a release.
             </p>
           </MaterialPanel>
           <MaterialPanel eyebrow="03" title="Universal data">
+            <Image
+              alt=""
+              className="principle-art"
+              height={1254}
+              loading="lazy"
+              sizes="(max-width: 760px) calc(100vw - 4rem), 390px"
+              src="/art/generated/principle-universal-data.webp"
+              width={1254}
+            />
             <p>
               Namespaced identifiers and versioned contracts keep the website and Java mod
               independently buildable.

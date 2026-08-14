@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
 const steps = [
@@ -50,24 +51,67 @@ export function HydroLine() {
         </div>
         <div className="factory-scene" aria-hidden="true">
           <div className="worker-token">
-            <span>W</span>
+            <Image
+              alt=""
+              height={1254}
+              sizes="(max-width: 760px) 130px, 180px"
+              src="/art/generated/water-worker.webp"
+              width={1254}
+            />
           </div>
           <div className="water-stream">
-            <span />
-            <span />
-            <span />
+            <Image
+              alt=""
+              height={724}
+              sizes="(max-width: 760px) 220px, 380px"
+              src="/art/generated/water-jet.webp"
+              width={2172}
+            />
           </div>
           <div className="coupler-body">
-            <span className="coupler-core" />
+            <Image
+              alt=""
+              height={1254}
+              sizes="(max-width: 760px) 120px, 170px"
+              src="/art/generated/hydro-coupler.webp"
+              width={1254}
+            />
           </div>
           <div className="factory-gear gear-large">
-            <span />
+            <Image
+              alt=""
+              height={1254}
+              sizes="(max-width: 760px) 105px, 150px"
+              src="/art/generated/brass-gear.webp"
+              width={1254}
+            />
           </div>
           <div className="factory-gear gear-small">
-            <span />
+            <Image
+              alt=""
+              height={1254}
+              sizes="(max-width: 760px) 70px, 92px"
+              src="/art/generated/brass-gear.webp"
+              width={1254}
+            />
           </div>
           <div className="factory-belt">
-            <span className="belt-package" />
+            <Image
+              alt=""
+              height={887}
+              sizes="(max-width: 760px) 260px, 520px"
+              src="/art/generated/conveyor.webp"
+              width={1773}
+            />
+            <span className="belt-package">
+              <Image
+                alt=""
+                height={1086}
+                sizes="58px"
+                src="/art/generated/brass-payload.webp"
+                width={1448}
+              />
+            </span>
           </div>
         </div>
         <div className="stage-meter" aria-hidden="true">
