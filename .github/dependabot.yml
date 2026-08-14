@@ -31,6 +31,12 @@ updates:
       - dependency-name: "dev.engine-room.flywheel:*"
       - dependency-name: "com.tterrag.registrate:*"
       - dependency-name: "thedarkcolour:kotlinforforge-neoforge"
+      # Gradle major upgrades must stay within the support window published by
+      # Kotlin and the Minecraft modding toolchain. Patch releases remain
+      # eligible for routine Dependabot updates.
+      - dependency-name: "gradle-wrapper"
+        update-types:
+          - "version-update:semver-major"
 
   - package-ecosystem: github-actions
     directory: "/"
@@ -44,9 +50,13 @@ updates:
     commit-message:
       prefix: "ci(deps)"
     groups:
-      non-major-github-actions:
+      github-actions:
+        applies-to: version-updates
         patterns:
           - "*"
+    # setup-gradle v6 defaults to a separately licensed cache provider. Stay
+    # on the open-source v5 line until a future major is deliberately reviewed.
+    ignore:
+      - dependency-name: "gradle/actions/setup-gradle"
         update-types:
-          - minor
-          - patch
+          - "version-update:semver-major"
