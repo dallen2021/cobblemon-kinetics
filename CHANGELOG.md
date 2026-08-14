@@ -11,8 +11,12 @@ between minor versions.
 
 ## [Unreleased]
 
-The current development build is `0.1.0-SNAPSHOT`. Nothing in this section is
-a published stable release.
+No user-visible changes yet.
+
+## [0.1.0-alpha.1] - 2026-08-13
+
+First public alpha. This is a playable development milestone, not a stable
+compatibility promise.
 
 ### Added
 
@@ -51,6 +55,7 @@ a published stable release.
 - Public project governance, contribution and support policies, structured
   issue and pull request templates, dependency updates, and hardened GitHub
   build and release automation.
+- Project and issue-tracker links in NeoForge mod metadata.
 - Ignored repo-local recovery for development-client `options.txt`, including
   Gradle restore, capture, and status tasks so personal settings survive a
   regenerated run directory without entering version control.
@@ -72,3 +77,6 @@ a published stable release.
 Future roles, data-driven work profiles, add-on integrations, Fabric support,
 worker pathfinding, fatigue, and a launcher-ready pack are tracked in
 `docs/GEN1_ROADMAP.md`; they are not part of the current implementation.
+
+[Unreleased]: https://github.com/dallen2021/cobblemon-kinetics/compare/v0.1.0-alpha.1...HEAD
+[0.1.0-alpha.1]: https://github.com/dallen2021/cobblemon-kinetics/releases/tag/v0.1.0-alpha.1

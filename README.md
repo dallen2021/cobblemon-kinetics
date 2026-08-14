@@ -12,14 +12,15 @@ automation with deliberately assigned Pokémon workers while keeping Create's
 kinetic networks, stress system, and visible machinery at the center of the
 factory.
 
-The current build is a playable, **unreleased development MVP**. It proves one
-complete job—the Hydro Coupler operated with a Worker Whistle—on Minecraft
-1.21.1 and NeoForge. Everything described under [Future scope](#future-scope)
-is planned, not shipped.
+The current build is a playable **public alpha**. It proves one complete
+job—the Hydro Coupler operated with a Worker Whistle—on Minecraft 1.21.1 and
+NeoForge. Everything described under [Future scope](#future-scope) is planned,
+not shipped.
 
 | Project field | Value |
 | --- | --- |
-| Version | `0.1.0-SNAPSHOT` |
+| Latest release | [`v0.1.0-alpha.1`](https://github.com/dallen2021/cobblemon-kinetics/releases/tag/v0.1.0-alpha.1) |
+| Development version | `0.1.0-SNAPSHOT` |
 | Project slug | `cobblemon-kinetics` |
 | Mod ID | `cobblemon_kinetics` |
 | Default gameplay scope | Generation 1 |
@@ -99,10 +100,11 @@ The MVP currently includes:
 - Java 21 build CI and a tag-driven release workflow; and
 - a reproducible, ignored local development-pack staging target.
 
-This is not a stable release. NeoForge GameTests, complete lifecycle coverage,
-repeatable multiplayer and dedicated-server evidence, and a launcher-ready
-public pack are still outstanding. Save data, balance, configuration, and
-compatibility boundaries may change before the first release.
+This alpha is not a stable release. NeoForge GameTests, complete lifecycle
+coverage, repeatable multiplayer and dedicated-server evidence, and a
+launcher-ready public pack are still outstanding. Save data, balance,
+configuration, and compatibility boundaries may change before the first
+stable release.
 
 ## Future scope
 
@@ -215,7 +217,9 @@ ignored files intentionally resets the development client's settings.
 
 ## Install for local play
 
-There is no published release artifact yet. To install a source build:
+Download the non-`sources` JAR and `SHA256SUMS` from the
+[`v0.1.0-alpha.1` prerelease](https://github.com/dallen2021/cobblemon-kinetics/releases/tag/v0.1.0-alpha.1),
+then:
 
 1. Create a Minecraft 1.21.1 instance with NeoForge 21.1.244.
 2. Install
@@ -223,14 +227,14 @@ There is no published release artifact yet. To install a source build:
    [Cobblemon 1.7.3 for NeoForge](https://modrinth.com/mod/cobblemon), and
    [Kotlin for Forge 5.12.0](https://modrinth.com/mod/kotlin-for-forge) from
    their official distribution pages.
-3. Run `./gradlew build` from this repository.
-4. Copy the non-`sources` project JAR from `build/libs/` into the
-   instance's `mods/` directory.
-5. For multiplayer, install the same project and dependency versions on the
+3. Copy `cobblemon-kinetics-1.21.1-0.1.0-alpha.1.jar` into the instance's
+   `mods/` directory. Verify it against `SHA256SUMS` when possible.
+4. For multiplayer, install the same project and dependency versions on the
    dedicated server.
 
 Do not install a `sources`, `dev`, or `shadow` artifact into a game
-instance.
+instance. Contributors can instead run `./gradlew build` and use the
+non-`sources` snapshot JAR from `build/libs/`.
 
 ### Repo-local development pack
 

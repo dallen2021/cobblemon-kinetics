@@ -4,10 +4,11 @@ Thank you for helping build Pokémon-operated Create machinery. Contributions
 of code, tests, documentation, translations, bug reproductions, profiling, and
 legally original art are welcome.
 
-The project is currently an unreleased `0.1.0-SNAPSHOT`. Keep changes narrow,
-testable, and honest about what exists today. The only implemented gameplay
-role is the Hydro Coupler operated through the Worker Whistle; roadmap entries
-are not shipped features.
+The project is in its `0.1.0` public-alpha cycle; source builds from `main` use
+the `0.1.0-SNAPSHOT` development version. Keep changes narrow, testable, and
+honest about what exists today. The only implemented gameplay role is the
+Hydro Coupler operated through the Worker Whistle; roadmap entries are not
+shipped features.
 
 By submitting a contribution, you agree that it may be distributed under the
 repository's [Mozilla Public License 2.0](LICENSE) and that you have the right
