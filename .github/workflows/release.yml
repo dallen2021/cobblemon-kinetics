@@ -22,6 +22,7 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
+          fetch-depth: 0
           persist-credentials: false
 
       - name: Set up Java 21
@@ -53,6 +54,17 @@ jobs:
             echo "prerelease=true" >> "$GITHUB_OUTPUT"
           else
             echo "prerelease=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Require release commit on main
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          release_commit="$(git rev-list -n 1 "$GITHUB_REF_NAME")"
+          if ! git merge-base --is-ancestor "$release_commit" refs/remotes/origin/main; then
+            echo "Release tag $GITHUB_REF_NAME does not point to a commit on main." >&2
+            exit 1
           fi
 
       - name: Build and test

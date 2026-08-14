@@ -80,9 +80,10 @@ dependency jars.
    drifted. Do not rewrite another contributor's work without coordination.
 
 Pull request titles should also follow Conventional Commits because the
-repository uses squash merging. After approval and a green build, the squash
-commit becomes the single permanent commit on `main`; the source branch is
-deleted automatically. There is no long-lived `develop` branch.
+repository uses squash merging. After the required build passes and review
+conversations are resolved, a maintainer can merge the pull request. The
+squash commit becomes the single permanent commit on `main`; the source branch
+is deleted automatically. There is no long-lived `develop` branch.
 
 ## Code expectations
 

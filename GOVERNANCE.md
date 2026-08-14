@@ -23,8 +23,10 @@ same review and CI expectations.
   and saved-data changes start with an issue or discussion before code.
 - Maintainers seek consensus using player impact, compatibility, maintenance
   cost, performance, licensing, and test evidence.
-- A pull request needs a green required build and at least one approval from
-  someone other than its author. The repository squash-merges approved work.
+- A pull request needs a green required build and all review conversations
+  resolved. Non-author review is encouraged for gameplay, API, security,
+  release, and governance changes, but is not a mandatory merge gate. The
+  repository squash-merges accepted work.
 - Anyone with a conflict of interest in a conduct or security report recuses
   themselves from handling it.
 
