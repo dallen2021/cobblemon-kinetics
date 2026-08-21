@@ -27,6 +27,14 @@ not shipped.
 | License | [Mozilla Public License 2.0](LICENSE) |
 | Website and design studio | [`cobblemon-kinetics-website`](https://github.com/dallen2021/cobblemon-kinetics-website) |
 
+## Reproducible development pack
+
+From a clean clone (outside any Modrinth/CurseForge profile), validate the
+committed manifest with hash-verified dependency downloads, run
+`buildAndInstall`, and confirm exactly one Cobblemon Kinetics development JAR
+is installed before launching the pinned core stack to the title screen. Do
+not commit downloaded third-party JARs or machine-specific absolute paths.
+
 ## What works today
 
 ### Hydro Coupler
